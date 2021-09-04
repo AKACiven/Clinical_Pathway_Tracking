@@ -24,25 +24,5 @@ module.exports = [
         code: 20000
       }
     }
-  },
-  {
-    url: '/registration/submit',
-    type: 'post',
-    response: config => {
-      return {
-        code: 20000
-      }
-    }
-  },
-  {
-    url: '/recorder/detail',
-    type: 'get',
-    response: config => {
-      const form = record.form
-      return {
-        code: 20000,
-        data: form
-      }
-    }
   }
 ]

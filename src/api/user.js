@@ -30,36 +30,3 @@ export function logout() {
     method: 'post'
   })
 }
-
-export function adminmod(data) {
-  return request({
-    url: '/user/adminmod',
-    method: 'post',
-    data
-  })
-}
-
-export function adminadd(data) {
-  return request({
-    url: '/user/adminadd',
-    method: 'post',
-    data
-  })
-}
-
-export function getUserlist(params) {
-  return request({
-    url: '/adminedit/userlist',
-    method: 'get',
-    params
-  })
-}
-
-export function getUserinfo(params) {
-  return request({
-    url: '/adminedit/userinfo',
-    method: 'get',
-    params
-  })
-}
-
