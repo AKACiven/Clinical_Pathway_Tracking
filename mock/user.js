@@ -26,19 +26,13 @@ const tokens = {
 
 const users = {
   'admin-token': {
-    roles: ['admin'],
-    avatar: 'hospital.png',
-    name: 'Admin'
+    roles: ['admin']
   },
   'doctor-token': {
-    roles: ['doctor'],
-    avatar: 'doctor.png',
-    name: 'Doctor'
+    roles: ['doctor']
   },
   'patient-token': {
-    roles: ['patient'],
-    avatar: 'patient.png',
-    name: 'Patient'
+    roles: ['patient']
   }
 }
 
@@ -50,9 +44,7 @@ module.exports = [
     response: config => {
       const { username } = config.body
       const token = tokens[username]
-      const role = 'admin'
       const roles = 'admin'
-      const avatar = 'hospital.png'
 
       // mock error
       if (!token) {
@@ -67,9 +59,7 @@ module.exports = [
         // data: token,
         data: {
           token,
-          role,
-          roles,
-          avatar
+          roles
         }
       }
     }

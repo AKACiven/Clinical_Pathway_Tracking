@@ -1,18 +1,47 @@
-const Mock = require('mockjs')
+const records2 = ({
+  'forms': [
+    {
+      'id': '7856100',
+      'name': '黄平如',
+      'bed': '0',
+      'status': '执行中'
+    },
+    {
+      'id': '7856106',
+      'name': '李子照',
+      'bed': '6',
+      'status': '变异'
+    },
+    {
+      'id': '7856109',
+      'name': '李红',
+      'bed': '9',
+      'status': '正常结束'
+    }
+  ]
+})
 
-const record = Mock.mock({
-  'form': {
-    id: '@id',
-    'department|1': ['眼科', '骨科', '儿科'],
-    'prescription': '@sentence(10, 20)',
-    'opinion': '@sentence(10, 15)',
-    'status|1': ['处理中', '等待确认', '处方结束'],
-    'doctor|1': ['王二狗', '黄大丫', '刘小刚'],
-    'patient|1': ['徐一狗', '何小丫', '张大刚'],
-    datetime: '@datetime',
-    'docfirm|1': [true, false],
-    'patfirm|1': [true, false]
-  }
+const tail = ({
+  'forms': [
+    {
+      'id': '7856100',
+      'name': '黄平如',
+      'bed': '0',
+      'status': '执行中'
+    },
+    {
+      'id': '7856106',
+      'name': '李子照',
+      'bed': '6',
+      'status': '变异'
+    },
+    {
+      'id': '7856109',
+      'name': '李红',
+      'bed': '9',
+      'status': '正常结束'
+    }
+  ]
 })
 
 module.exports = [
@@ -22,6 +51,28 @@ module.exports = [
     response: config => {
       return {
         code: 20000
+      }
+    }
+  },
+  { // 首页展示的患2
+    url: '/home/listf',
+    type: 'get',
+    response: config => {
+      const form2 = records2.forms
+      return {
+        code: 20000,
+        data: form2
+      }
+    }
+  },
+  { // 首页展示的患2
+    url: '/path/tail',
+    type: 'get',
+    response: config => {
+      const form = tail.forms
+      return {
+        code: 20000,
+        data: form
       }
     }
   }

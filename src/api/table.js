@@ -7,3 +7,19 @@ export function getList(params) {
     params
   })
 }
+
+export function getList2(params) {
+  return request({
+    url: '/home/listf',
+    method: 'get',
+    params
+  })
+}
+
+export function getPath(params) {
+  return request({
+    url: '/path/overall',
+    method: 'get',
+    params
+  })
+}

@@ -42,15 +42,6 @@
         </span>
       </el-form-item>
       <el-row>
-        <el-checkbox style="width:100%;margin-bottom:30px;" v-model="loginForm.rememberMe">记住我</el-checkbox>
-      </el-row>
-      <div>
-        <el-radio-group style="margin-bottom: 30px;" v-model="loginForm.isDoctor">
-          <el-radio-button :label="false">患者</el-radio-button>
-          <el-radio-button :label="true">医生和管理员</el-radio-button>
-        </el-radio-group>
-      </div>
-      <el-row>
         <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
       </el-row>
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click="handleRegister">Register</el-button>
@@ -82,10 +73,8 @@ export default {
       loginForm: {
         // username: 'admin',
         // password: '111111',
-        username: 'Alice',
-        password: '123456',
-        isDoctor: true,
-        rememberMe: true,
+        username: 'admin',
+        password: '111111'
       },
       loginRules: {
         // username: [{ required: true, trigger: 'blur', validator: validateUsername }],

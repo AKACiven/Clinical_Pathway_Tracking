@@ -76,6 +76,29 @@ export const asyncRoutes = [
     ]
   },
 
+  {
+    path: '/Path',
+    component: Layout,
+    meta: {
+      title: '路径管理',
+      icon: 'form'
+    },
+    children: [
+      {
+        path: 'Overall',
+        name: 'Overall',
+        component: () => import('@/views/cpath/overall'),
+        meta: { title: '路径总览', icon: 'el-icon-s-home' }
+      },
+      {
+        path: 'Scan',
+        name: 'Scan',
+        component: () => import('@/views/cpath/scan'),
+        meta: { title: '路径详细内容', icon: 'el-icon-s-home' }
+      }
+    ]
+  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 
