@@ -11,7 +11,7 @@
           <div style="margin: 15px 0;"></div>
           <el-checkbox-group v-model="checkedCities.chkcts0" @change="handleCheckedCitiesChange0">
             <el-checkbox v-for="city0 in cities.city0" :label="city0" :key="city0">{{ city0 }}
-              <el-button type="primary" v-if="city0 === '北京'">lalalalala</el-button>
+              <el-button @click="drawer = true" v-if="city0 === '北京'" type="primary" style="margin-left: 16px;">点我打开</el-button>
             </el-checkbox>
           </el-checkbox-group>
         </template>
@@ -25,7 +25,7 @@
           </el-checkbox-group>
         </template>
       </el-collapse-item>
-      <el-collapse-item title="临时遗嘱" name="3">
+      <el-collapse-item title="临时医嘱" name="3">
         <template>
           <el-checkbox :indeterminate="isIndeterminate2" v-model="checkAll2" @change="handleCheckAllChange2">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
@@ -44,6 +44,15 @@
         </template>
       </el-collapse-item>
     </el-collapse>
+    <el-drawer
+      title="我是标题"
+      :visible.sync="drawer"
+      :direction="rtl"
+      :before-close="handleClose">
+      <span>
+        <el-input v-model="input" placeholder="请输入内容"></el-input>
+      </span>
+    </el-drawer>
   </div>
 </template>
 
@@ -97,7 +106,9 @@ export default {
       isIndeterminate1: true,
       isIndeterminate2: true,
       isIndeterminate3: true,
-      activeNames: ['1', '2', '3', '4']
+      activeNames: ['1', '2', '3', '4'],
+      drawer: false,
+      input: ''
     }
   },
   created() {
@@ -168,6 +179,13 @@ export default {
     },
     handleChange(val) {
       console.log(val)
+    },
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {})
     }
   }
 }
