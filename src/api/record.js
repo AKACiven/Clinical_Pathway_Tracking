@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function submittee(data) {
+export function pathSubmit(data) {
   return request({
-    url: '/recorder/docsubmit',
+    url: '/path/submit',
     method: 'post',
     data
   })

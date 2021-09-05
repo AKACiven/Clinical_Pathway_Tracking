@@ -27,6 +27,10 @@ const records = ({
   ]
 })
 
+const scan = ({
+  'forms': ['上海', '北京', '广州', '深圳', '武汉']
+})
+
 const path = ({
   'forms': [
     {
@@ -72,6 +76,17 @@ module.exports = [
       return {
         code: 20000,
         data: form
+      }
+    }
+  },
+  {
+    url: '/path/scan',
+    type: 'get',
+    response: config => {
+      const scan = scan.forms
+      return {
+        code: 20000,
+        data: scan
       }
     }
   }

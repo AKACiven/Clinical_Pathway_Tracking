@@ -1,43 +1,45 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-button type="primary">确认路径</el-button>
+      <el-button type="primary" @click.native.prevent="submit">确认路径</el-button>
       <div style="margin: 15px 0;"></div>
     </el-row>
     <el-collapse v-model="activeNames" @change="handleChange">
       <el-collapse-item title="主要诊疗工作" name="1">
         <template>
-          <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+          <el-checkbox :indeterminate="isIndeterminate0" v-model="checkAll0" @change="handleCheckAllChange0">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-            <el-checkbox v-for="city in cities" :label="city" :key="city">{{ city }}</el-checkbox>
+          <el-checkbox-group v-model="checkedCities.chkcts0" @change="handleCheckedCitiesChange0">
+            <el-checkbox v-for="city0 in cities.city0" :label="city0" :key="city0">{{ city0 }}
+              <el-button type="primary" v-if="city0 === '北京'">lalalalala</el-button>
+            </el-checkbox>
           </el-checkbox-group>
         </template>
       </el-collapse-item>
       <el-collapse-item title="长期医嘱" name="2">
         <template>
-          <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+          <el-checkbox :indeterminate="isIndeterminate1" v-model="checkAll1" @change="handleCheckAllChange1">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-            <el-checkbox v-for="city in cities" :label="city" :key="city">{{ city }}</el-checkbox>
+          <el-checkbox-group v-model="checkedCities.chkcts1" @change="handleCheckedCitiesChange1">
+            <el-checkbox v-for="city1 in cities.city1" :label="city1" :key="city1">{{ city1 }}</el-checkbox>
           </el-checkbox-group>
         </template>
       </el-collapse-item>
       <el-collapse-item title="临时遗嘱" name="3">
         <template>
-          <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+          <el-checkbox :indeterminate="isIndeterminate2" v-model="checkAll2" @change="handleCheckAllChange2">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-            <el-checkbox v-for="city in cities" :label="city" :key="city">{{ city }}</el-checkbox>
+          <el-checkbox-group v-model="checkedCities.chkcts2" @change="handleCheckedCitiesChange2">
+            <el-checkbox v-for="city2 in cities.city2" :label="city2" :key="city2">{{ city2 }}</el-checkbox>
           </el-checkbox-group>
         </template>
       </el-collapse-item>
       <el-collapse-item title="主要护理工作" name="4">
         <template>
-          <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+          <el-checkbox :indeterminate="isIndeterminate3" v-model="checkAll3" @change="handleCheckAllChange3">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-            <el-checkbox v-for="city in cities" :label="city" :key="city">{{ city }}</el-checkbox>
+          <el-checkbox-group v-model="checkedCities.chkcts3" @change="handleCheckedCitiesChange3">
+            <el-checkbox v-for="city3 in cities.city3" :label="city3" :key="city3">{{ city3 }}</el-checkbox>
           </el-checkbox-group>
         </template>
       </el-collapse-item>
@@ -47,33 +49,121 @@
 
 <script>
 
-const cityOptions = ['上海', '北京', '广州', '深圳']
+import { getScan } from '@/api/table'
+import { pathSubmit } from '@/api/record'
+
 export default {
   data() {
     return {
-      checkAll: false,
-      checkedCities: ['上海', '北京'],
-      cities: cityOptions,
-      isIndeterminate: true,
+      checkAll0: false,
+      checkAll1: false,
+      checkAll2: false,
+      checkAll3: false,
+      checkedCities: {
+        chkcts0: [
+          '上海',
+          '北京'],
+        chkcts1: [
+          '上海',
+          '北京'],
+        chkcts2: [
+          '上海',
+          '北京'],
+        chkcts3: [
+          '上海',
+          '北京'] },
+      cities: {
+        city0: [
+          '上海',
+          '北京',
+          '广州',
+          '深圳'],
+        city1: [
+          '上海',
+          '北京',
+          '广州',
+          '深圳'],
+        city2: [
+          '无锡',
+          '北京',
+          '广州',
+          '深圳'],
+        city3: [
+          '芜湖',
+          '北京',
+          '广州',
+          '深圳'] },
+      isIndeterminate0: true,
+      isIndeterminate1: true,
+      isIndeterminate2: true,
+      isIndeterminate3: true,
       activeNames: ['1', '2', '3', '4']
     }
   },
   created() {
-    this.fetchData()
+    if (!(this.$route.query.id && this.$route.query.where)) {
+      this.$alert('请先在路径总览进行操作！', '提示', {
+        confirmButtonText: '前往路径总览',
+        callback: action => {
+          this.$router.push({
+            path: '/Path/Overall'
+          })
+        }
+      })
+    } else {
+      this.fetchData()
+    }
   },
   methods: {
-    handleCheckAllChange(val) {
-      this.checkedCities = val ? cityOptions : []
+    handleCheckAllChange0(val) {
+      this.checkedCities.chkcts0 = val ? this.cities.city0 : []
+      this.isIndeterminate0 = false
+    },
+    handleCheckAllChange1(val) {
+      this.checkedCities.chkcts1 = val ? this.cities.city1 : []
+      this.isIndeterminate1 = false
+    },
+    handleCheckAllChange2(val) {
+      this.checkedCities.chkcts2 = val ? this.cities.city2 : []
+      this.isIndeterminate2 = false
+    },
+    handleCheckAllChange3(val) {
+      this.checkedCities.chkcts3 = val ? this.cities.city3 : []
       this.isIndeterminate = false
     },
-    handleCheckedCitiesChange(value) {
+    handleCheckedCitiesChange0(value) {
       let checkedCount = value.length
-      this.checkAll = checkedCount === this.cities.length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
+      this.checkAll0 = checkedCount === this.cities.city0.length
+      this.isIndeterminate3 = checkedCount > 0 && checkedCount < this.cities.city0.length
+    },
+    handleCheckedCitiesChange1(value) {
+      let checkedCount = value.length
+      this.checkAll1 = checkedCount === this.cities.city1.length
+      this.isIndeterminate3 = checkedCount > 0 && checkedCount < this.cities.city1.length
+    },
+    handleCheckedCitiesChange2(value) {
+      let checkedCount = value.length
+      this.checkAll2 = checkedCount === this.cities.city2.length
+      this.isIndeterminate3 = checkedCount > 0 && checkedCount < this.cities.city2.length
+    },
+    handleCheckedCitiesChange3(value) {
+      let checkedCount = value.length
+      this.checkAll3 = checkedCount === this.cities.city3.length
+      this.isIndeterminate3 = checkedCount > 0 && checkedCount < this.cities.city3.length
     },
     fetchData() {
-      ({ id: this.$route.query.id, where: this.$route.query.id }).then(response => {
-        this.list = response.data
+      getScan({ id: this.$route.query.id, where: this.$route.query.id }).then(response => {
+        this.cities = response.data
+      })
+    },
+    submit() {
+      pathSubmit(this.checkedCities).then(() => {
+        this.$alert('路径提交成功！', '消息', {
+          confirmButtonText: '确认',
+          callback: action => {
+            window.location.reload()
+          }
+        })
       })
     },
     handleChange(val) {

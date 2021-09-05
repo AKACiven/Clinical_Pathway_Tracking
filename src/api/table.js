@@ -23,3 +23,11 @@ export function getPath(params) {
     params
   })
 }
+
+export function getScan(params) {
+  return request({
+    url: '/path/scan',
+    method: 'get',
+    params
+  })
+}
