@@ -93,7 +93,7 @@ export const asyncRoutes = [
       {
         path: 'Scan',
         name: 'Scan',
-        component: () => import('@/views/cpath/scan'),
+        component: () => import('@/views/cpath/scan0'),
         meta: { title: '路径详细内容', icon: 'el-icon-s-home' }
       }
     ]

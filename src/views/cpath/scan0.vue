@@ -11,7 +11,7 @@
           <div style="margin: 15px 0;"></div>
           <el-checkbox-group v-model="checkedCities.chkcts0" @change="handleCheckedCitiesChange0">
             <el-checkbox v-for="city0 in cities.city0" :label="city0" :key="city0">{{ city0 }}
-              <el-button @click="drawer = true" v-if="city0 === '北京'" type="primary" style="margin-left: 16px;">点我打开</el-button>
+              <el-button @click="drawer = true" v-if="city0 === '北京'" type="primary" style="margin-left: 16px;">打开</el-button>
             </el-checkbox>
           </el-checkbox-group>
         </template>
@@ -21,7 +21,9 @@
           <el-checkbox :indeterminate="isIndeterminate1" v-model="checkAll1" @change="handleCheckAllChange1">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
           <el-checkbox-group v-model="checkedCities.chkcts1" @change="handleCheckedCitiesChange1">
-            <el-checkbox v-for="city1 in cities.city1" :label="city1" :key="city1">{{ city1 }}</el-checkbox>
+            <el-checkbox v-for="city1 in cities.city1" :label="city1" :key="city1">{{ city1 }}
+              <el-button @click="drawer = true" v-if="city1 === '其他医嘱'" type="primary" style="margin-left: 16px;">打开</el-button>
+            </el-checkbox>
           </el-checkbox-group>
         </template>
       </el-collapse-item>
@@ -83,15 +85,20 @@ export default {
           '北京'] },
       cities: {
         city0: [
-          '上海',
-          '北京',
-          '广州',
-          '深圳'],
+          '询问病史及体格检查',
+          '完成病历书写',
+          '开实验室检查单',
+          '对症支持治疗',
+          '病情告知，必要时向患者家属告病重或病危通知，并签署病重或病危通知书',
+          '患者家属签署各种必要的知情同意书'
+        ],
         city1: [
-          '上海',
-          '北京',
-          '广州',
-          '深圳'],
+          '血液病护理常规',
+          '二级护理',
+          '饮食',
+          '视病情通知病重或病危',
+          '其他医嘱'
+        ],
         city2: [
           '无锡',
           '北京',
