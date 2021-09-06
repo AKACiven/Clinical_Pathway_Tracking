@@ -52,7 +52,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <span>
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="input1" placeholder="请输入内容"></el-input>
       </span>
     </el-drawer>
   </div>
@@ -71,18 +71,11 @@ export default {
       checkAll2: false,
       checkAll3: false,
       checkedCities: {
-        chkcts0: [
-          '上海',
-          '北京'],
-        chkcts1: [
-          '上海',
-          '北京'],
-        chkcts2: [
-          '上海',
-          '北京'],
-        chkcts3: [
-          '上海',
-          '北京'] },
+        chkcts0: [],
+        chkcts1: [],
+        chkcts2: [],
+        chkcts3: []
+      },
       cities: {
         city0: [
           '询问病史及体格检查',
@@ -100,22 +93,24 @@ export default {
           '其他医嘱'
         ],
         city2: [
-          '无锡',
-          '北京',
-          '广州',
-          '深圳'],
+          '血常规及分类、尿常规、大便常规＋隐血',
+          '肝肾功能、电解质、血沉、凝血功能、血型、输血前检查、Coombs试验、心肌酶谱、β2-微球蛋白',
+          '乙肝二对半',
+          'X线胸片、心电图、腹部B超、心脏B超、增强CT',
+          '输血（有指征时）等支持对症治疗',
+          '其他医嘱'
+        ],
         city3: [
-          '芜湖',
-          '北京',
-          '广州',
-          '深圳'] },
+          '介绍病房环境、设施和设备',
+          '入院护理评估',
+          '宣教'] },
       isIndeterminate0: true,
       isIndeterminate1: true,
       isIndeterminate2: true,
       isIndeterminate3: true,
       activeNames: ['1', '2', '3', '4'],
       drawer: false,
-      input: ''
+      input1: ''
     }
   },
   created() {

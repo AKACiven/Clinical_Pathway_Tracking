@@ -91,10 +91,28 @@ export const asyncRoutes = [
         meta: { title: '路径总览', icon: 'el-icon-s-home' }
       },
       {
-        path: 'Scan',
-        name: 'Scan',
+        path: 'Scan0',
+        name: 'Scan0',
         component: () => import('@/views/cpath/scan0'),
-        meta: { title: '路径详细内容', icon: 'el-icon-s-home' }
+        meta: { title: '第1阶段', icon: 'el-icon-s-home' }
+      },
+      {
+        path: 'Scan1',
+        name: 'Scan1',
+        component: () => import('@/views/cpath/scan1'),
+        meta: { title: '第2阶段', icon: 'el-icon-s-home' }
+      },
+      {
+        path: 'Scan2',
+        name: 'Scan2',
+        component: () => import('@/views/cpath/scan2'),
+        meta: { title: '第3阶段', icon: 'el-icon-s-home' }
+      },
+      {
+        path: 'Scan3',
+        name: 'Scan3',
+        component: () => import('@/views/cpath/scan3'),
+        meta: { title: '第4阶段', icon: 'el-icon-s-home' }
       }
     ]
   },

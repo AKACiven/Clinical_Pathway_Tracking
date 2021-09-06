@@ -84,7 +84,7 @@ export default {
     },
     edit(row) {
       this.$router.push({
-        path: '/Path/Scan',
+        path: '/Path/Scan' + row.where,
         query: {
           id: this.$route.query.id,
           where: row.where
