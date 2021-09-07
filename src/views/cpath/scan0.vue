@@ -9,7 +9,7 @@
         <template>
           <el-checkbox :indeterminate="isIndeterminate0" v-model="checkAll0" @change="handleCheckAllChange0">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkedCities.chkcts0" @change="handleCheckedCitiesChange0">
+          <el-checkbox-group v-model="checkedCities.city0" @change="handleCheckedCitiesChange0">
             <el-checkbox v-for="city0 in cities.city0" :label="city0" :key="city0">{{ city0 }}
             </el-checkbox>
           </el-checkbox-group>
@@ -19,7 +19,7 @@
         <template>
           <el-checkbox :indeterminate="isIndeterminate1" v-model="checkAll1" @change="handleCheckAllChange1">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkedCities.chkcts1" @change="handleCheckedCitiesChange1">
+          <el-checkbox-group v-model="checkedCities.city1" @change="handleCheckedCitiesChange1">
             <el-checkbox v-for="city1 in cities.city1" :label="city1" :key="city1">{{ city1 }}
               <el-button @click="drawer0 = true" v-if="city1 === '饮食'" type="primary" style="margin-left: 16px;">填写</el-button>
               <el-button @click="drawer1 = true" v-if="city1 === '其他医嘱'" type="primary" style="margin-left: 16px;">填写</el-button>
@@ -31,7 +31,7 @@
         <template>
           <el-checkbox :indeterminate="isIndeterminate2" v-model="checkAll2" @change="handleCheckAllChange2">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkedCities.chkcts2" @change="handleCheckedCitiesChange2">
+          <el-checkbox-group v-model="checkedCities.city2" @change="handleCheckedCitiesChange2">
             <el-checkbox v-for="city2 in cities.city2" :label="city2" :key="city2">{{ city2 }}
               <el-button @click="drawer2 = true" v-if="city2.indexOf('常规检查') !== -1" type="primary" style="margin-left: 16px;">选择</el-button>
               <el-button @click="drawer3 = true" v-if="city2.indexOf('功能性检查') !== -1" type="primary" style="margin-left: 16px;">选择</el-button>
@@ -46,7 +46,7 @@
         <template>
           <el-checkbox :indeterminate="isIndeterminate3" v-model="checkAll3" @change="handleCheckAllChange3">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkedCities.chkcts3" @change="handleCheckedCitiesChange3">
+          <el-checkbox-group v-model="checkedCities.city3" @change="handleCheckedCitiesChange3">
             <el-checkbox v-for="city3 in cities.city3" :label="city3" :key="city3">{{ city3 }}</el-checkbox>
           </el-checkbox-group>
         </template>
@@ -58,7 +58,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <span>
-        <el-input v-model="detailcities.dtcts1.input0" placeholder="请输入饮食医嘱" type="textarea" autosize></el-input>
+        <el-input v-model="detailcities.city1.input0" placeholder="请输入饮食医嘱" type="textarea" autosize></el-input>
       </span>
     </el-drawer>
     <el-drawer
@@ -67,7 +67,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <span>
-        <el-input v-model="detailcities.dtcts1.input1" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+        <el-input v-model="detailcities.city1.input1" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
       </span>
     </el-drawer>
     <el-drawer
@@ -76,7 +76,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <template>
-        <el-checkbox-group v-model="detailcities.dtcts2.input0">
+        <el-checkbox-group v-model="detailcities.city2.input0">
           <el-checkbox label="血常规及分类"></el-checkbox>
           <el-checkbox label="尿常规"></el-checkbox>
           <el-checkbox label="大便常规＋隐血"></el-checkbox>
@@ -89,7 +89,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <template>
-        <el-checkbox-group v-model="detailcities.dtcts2.input1">
+        <el-checkbox-group v-model="detailcities.city2.input1">
           <el-checkbox label="肝肾功能"></el-checkbox>
           <el-checkbox label="电解质"></el-checkbox>
           <el-checkbox label="血沉"></el-checkbox>
@@ -108,7 +108,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <template>
-        <el-checkbox-group v-model="detailcities.dtcts2.input2">
+        <el-checkbox-group v-model="detailcities.city2.input2">
           <el-checkbox label="X线胸片"></el-checkbox>
           <el-checkbox label="心电图"></el-checkbox>
           <el-checkbox label="腹部B超"></el-checkbox>
@@ -123,7 +123,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <span>
-        <el-input v-model="detailcities.dtcts2.input3" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+        <el-input v-model="detailcities.city2.input3" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
       </span>
     </el-drawer>
     <el-drawer
@@ -132,7 +132,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <template>
-        <el-checkbox-group v-model="detailcities.dtcts2.input4">
+        <el-checkbox-group v-model="detailcities.city2.input4">
           <el-checkbox label="免疫球蛋白重链可变区(IGVH)突变状态"></el-checkbox>
           <el-checkbox label="染色体核型分析"></el-checkbox>
           <el-checkbox label="FISH 检测"></el-checkbox>
@@ -156,25 +156,25 @@ export default {
       checkAll2: false,
       checkAll3: false,
       checkedCities: {
-        chkcts0: [],
-        chkcts1: [],
-        chkcts2: [],
-        chkcts3: []
+        city0: [],
+        city1: [],
+        city2: [],
+        city3: []
       },
       detailcities: {
-        dtcts0: {},
-        dtcts1: {
+        city0: {},
+        city1: {
           input0: '',
           input1: ''
         },
-        dtcts2: {
+        city2: {
           input0: [],
           input1: [],
           input2: [],
           input3: '',
           input4: []
         },
-        dtcts3: {}
+        city3: {}
       },
       cities: {
         city0: [
@@ -216,11 +216,18 @@ export default {
       drawer3: false,
       drawer4: false,
       drawer5: false,
-      drawer6: false
+      drawer6: false,
+      permdata: {
+        cities: null,
+        detailcities: null,
+        checkedCities: null,
+        where: 0,
+        id: null
+      }
     }
   },
   created() {
-    if (!this.$route.query.id && !this.$route.query.where) {
+    if (!this.$route.query.id) {
       this.$alert('请先在路径总览进行操作！', '提示', {
         confirmButtonText: '前往路径总览',
         callback: action => {
@@ -235,19 +242,19 @@ export default {
   },
   methods: {
     handleCheckAllChange0(val) {
-      this.checkedCities.chkcts0 = val ? this.cities.city0 : []
+      this.checkedCities.city0 = val ? this.cities.city0 : []
       this.isIndeterminate0 = false
     },
     handleCheckAllChange1(val) {
-      this.checkedCities.chkcts1 = val ? this.cities.city1 : []
+      this.checkedCities.city1 = val ? this.cities.city1 : []
       this.isIndeterminate1 = false
     },
     handleCheckAllChange2(val) {
-      this.checkedCities.chkcts2 = val ? this.cities.city2 : []
+      this.checkedCities.city2 = val ? this.cities.city2 : []
       this.isIndeterminate2 = false
     },
     handleCheckAllChange3(val) {
-      this.checkedCities.chkcts3 = val ? this.cities.city3 : []
+      this.checkedCities.city3 = val ? this.cities.city3 : []
       this.isIndeterminate = false
     },
     handleCheckedCitiesChange0(value) {
@@ -272,22 +279,26 @@ export default {
     },
     fetchData() {
       getScan({ id: this.$route.query.id, where: this.$route.query.where }).then(response => {
-        this.checkedCities.chkcts0 = response.data.checkedCities.chkcts0
-        this.checkedCities.chkcts1 = response.data.checkedCities.chkcts1
-        this.checkedCities.chkcts2 = response.data.checkedCities.chkcts2
-        this.checkedCities.chkcts3 = response.data.checkedCities.chkcts3
-        this.detailcities.dtcts0 = response.data.detailcities.dtcts0
-        this.detailcities.dtcts1 = response.data.detailcities.dtcts1
-        this.detailcities.dtcts2 = response.data.detailcities.dtcts2
-        this.detailcities.dtcts3 = response.data.detailcities.dtcts3
+        this.checkedCities.city0 = response.data.checkedCities.city0
+        this.checkedCities.city1 = response.data.checkedCities.city1
+        this.checkedCities.city2 = response.data.checkedCities.city2
+        this.checkedCities.city3 = response.data.checkedCities.city3
+        this.detailcities.city0 = response.data.detailcities.city0
+        this.detailcities.city1 = response.data.detailcities.city1
+        this.detailcities.city2 = response.data.detailcities.city2
+        this.detailcities.city3 = response.data.detailcities.city3
       })
     },
     submit() {
-      pathSubmit(this.checkedCities).then(() => {
+      this.permdata.cities = this.cities
+      this.permdata.id = this.$route.query.id
+      this.permdata.detailcities = this.detailcities
+      this.permdata.checkedCities = this.checkedCities
+      pathSubmit(this.permdata).then(() => {
         this.$alert('路径提交成功！', '消息', {
           confirmButtonText: '确认',
           callback: action => {
-            window.location.reload()
+            // window.location.reload()
           }
         })
       })

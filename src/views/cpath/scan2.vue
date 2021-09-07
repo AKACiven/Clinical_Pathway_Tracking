@@ -9,9 +9,8 @@
         <template>
           <el-checkbox :indeterminate="isIndeterminate0" v-model="checkAll0" @change="handleCheckAllChange0">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkedCities.chkcts0" @change="handleCheckedCitiesChange0">
+          <el-checkbox-group v-model="checkedCities.city0" @change="handleCheckedCitiesChange0">
             <el-checkbox v-for="city0 in cities.city0" :label="city0" :key="city0">{{ city0 }}
-              <el-button @click="drawer = true" v-if="city0 === '北京'" type="primary" style="margin-left: 16px;">打开</el-button>
             </el-checkbox>
           </el-checkbox-group>
         </template>
@@ -20,8 +19,17 @@
         <template>
           <el-checkbox :indeterminate="isIndeterminate1" v-model="checkAll1" @change="handleCheckAllChange1">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkedCities.chkcts1" @change="handleCheckedCitiesChange1">
-            <el-checkbox v-for="city1 in cities.city1" :label="city1" :key="city1">{{ city1 }}</el-checkbox>
+          <el-checkbox-group v-model="checkedCities.city1" @change="handleCheckedCitiesChange1">
+            <el-checkbox v-for="city1 in cities.city1" :label="city1" :key="city1">{{ city1 }}
+              <el-button @click="drawer1 = true" v-if="city1 === '其他医嘱'" type="primary" style="margin-left: 16px;">填写</el-button>
+              <el-button @click="drawer2 = true" v-if="city1.indexOf('苯丁酸氮芥') !== -1" type="primary" style="margin-left: 16px;">剂量</el-button>
+              <el-button @click="drawer3 = true" v-if="city1.indexOf('利妥昔单抗') !== -1" type="primary" style="margin-left: 16px;">剂量</el-button>
+              <el-button @click="drawer4 = true" v-if="city1.indexOf('氟达拉滨') !== -1" type="primary" style="margin-left: 16px;">剂量</el-button>
+              <el-button @click="drawer5 = true" v-if="city1.indexOf('环磷酰胺') !== -1" type="primary" style="margin-left: 16px;">剂量</el-button>
+              <el-button @click="drawer6 = true" v-if="city1.indexOf('甲泼尼龙') !== -1" type="primary" style="margin-left: 16px;">剂量</el-button>
+              <el-button @click="drawer7 = true" v-if="city1.indexOf('伊布替尼') !== -1" type="primary" style="margin-left: 16px;">剂量</el-button>
+
+            </el-checkbox>
           </el-checkbox-group>
         </template>
       </el-collapse-item>
@@ -29,8 +37,10 @@
         <template>
           <el-checkbox :indeterminate="isIndeterminate2" v-model="checkAll2" @change="handleCheckAllChange2">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkedCities.chkcts2" @change="handleCheckedCitiesChange2">
-            <el-checkbox v-for="city2 in cities.city2" :label="city2" :key="city2">{{ city2 }}</el-checkbox>
+          <el-checkbox-group v-model="checkedCities.city2" @change="handleCheckedCitiesChange2">
+            <el-checkbox v-for="city2 in cities.city2" :label="city2" :key="city2">{{ city2 }}
+              <el-button @click="drawer0 = true" v-if="city2.indexOf('其他医嘱') !== -1" type="primary" style="margin-left: 16px;">填写</el-button>
+            </el-checkbox>
           </el-checkbox-group>
         </template>
       </el-collapse-item>
@@ -38,20 +48,38 @@
         <template>
           <el-checkbox :indeterminate="isIndeterminate3" v-model="checkAll3" @change="handleCheckAllChange3">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
-          <el-checkbox-group v-model="checkedCities.chkcts3" @change="handleCheckedCitiesChange3">
+          <el-checkbox-group v-model="checkedCities.city3" @change="handleCheckedCitiesChange3">
             <el-checkbox v-for="city3 in cities.city3" :label="city3" :key="city3">{{ city3 }}</el-checkbox>
           </el-checkbox-group>
         </template>
       </el-collapse-item>
     </el-collapse>
     <el-drawer
-      title="我是标题"
-      :visible.sync="drawer"
+      title="其他医嘱"
+      :visible.sync="drawer0"
       :direction="rtl"
       :before-close="handleClose">
       <span>
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="detailcities.city2.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
       </span>
+    </el-drawer>
+    <el-drawer
+      title="其他医嘱"
+      :visible.sync="drawer1"
+      :direction="rtl"
+      :before-close="handleClose">
+      <span>
+        <el-input v-model="detailcities.city1.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+      </span>
+    </el-drawer>
+    <el-drawer
+      title="天数"
+      :visible.sync="drawer2"
+      :direction="rtl"
+      :before-close="handleClose">
+      <template>
+        <el-input-number v-model="detailcities.city1.input1" :min="1" :max="7" label="描述文字"></el-input-number>
+      </template>
     </el-drawer>
   </div>
 </template>
@@ -69,10 +97,26 @@ export default {
       checkAll2: false,
       checkAll3: false,
       checkedCities: {
-        chkcts0: [],
-        chkcts1: [],
-        chkcts2: [],
-        chkcts3: []
+        city0: [],
+        city1: [],
+        city2: [],
+        city3: []
+      },
+      detailcities: {
+        city0: {},
+        city1: {
+          input0: '',
+          input1: null,
+          input2: null,
+          input3: null,
+          input4: null,
+          input5: null,
+          input6: ''
+        },
+        city2: {
+          input0: ''
+        },
+        city3: {}
       },
       cities: {
         city0: [
@@ -85,13 +129,11 @@ export default {
           '完成病程记录'
         ],
         city1: [
-          '苯丁酸氮芥单用或联合利妥昔单抗, 利妥昔单抗',
-          '利妥昔单抗单用',
-          '氟达拉滨单用',
-          'FC方案',
-          'FCR方案: FC同上, 利妥昔单抗',
-          '减低剂量FCR, 利妥昔单抗',
-          '甲泼尼龙单用或联合利妥昔单抗',
+          '苯丁酸氮芥10mg/(m^2*d)',
+          '利妥昔单抗',
+          '氟达拉滨',
+          '环磷酰胺',
+          '甲泼尼龙',
           '伊布替尼',
           '重要脏器保护，碱化水化利尿等治疗',
           '必要时抗感染等支持治疗',
@@ -108,19 +150,29 @@ export default {
           '观察患者病情变化',
           '心理与生活护理',
           '化疗期间嘱患者多饮水'
-        ]
-      },
+        ] },
       isIndeterminate0: true,
       isIndeterminate1: true,
       isIndeterminate2: true,
       isIndeterminate3: true,
       activeNames: ['1', '2', '3', '4'],
-      drawer: false,
-      input: ''
+      drawer0: false,
+      drawer1: false,
+      drawer2: false,
+      drawer3: false,
+      drawer4: false,
+      drawer5: false,
+      drawer6: false,
+      drawer7: false,
+      permdata: {
+        detailcities: null,
+        checkedCities: null,
+        where: 2
+      }
     }
   },
   created() {
-    if (!(this.$route.query.id && this.$route.query.where)) {
+    if (!this.$route.query.id && !this.$route.query.where) {
       this.$alert('请先在路径总览进行操作！', '提示', {
         confirmButtonText: '前往路径总览',
         callback: action => {
@@ -171,16 +223,25 @@ export default {
       this.isIndeterminate3 = checkedCount > 0 && checkedCount < this.cities.city3.length
     },
     fetchData() {
-      getScan({ id: this.$route.query.id, where: this.$route.query.id }).then(response => {
-        this.cities = response.data
+      getScan({ id: this.$route.query.id, where: this.$route.query.where }).then(response => {
+        this.checkedCities.chkcts0 = response.data.checkedCities.chkcts0
+        this.checkedCities.chkcts1 = response.data.checkedCities.chkcts1
+        this.checkedCities.chkcts2 = response.data.checkedCities.chkcts2
+        this.checkedCities.chkcts3 = response.data.checkedCities.chkcts3
+        this.detailcities.dtcts0 = response.data.detailcities.dtcts0
+        this.detailcities.dtcts1 = response.data.detailcities.dtcts1
+        this.detailcities.dtcts2 = response.data.detailcities.dtcts2
+        this.detailcities.dtcts3 = response.data.detailcities.dtcts3
       })
     },
     submit() {
-      pathSubmit(this.checkedCities).then(() => {
+      this.permdata.detailcities = this.detailcities
+      this.permdata.checkedCities = this.checkedCities
+      pathSubmit(this.permdata).then(() => {
         this.$alert('路径提交成功！', '消息', {
           confirmButtonText: '确认',
           callback: action => {
-            window.location.reload()
+            // window.location.reload()
           }
         })
       })
@@ -189,7 +250,7 @@ export default {
       console.log(val)
     },
     handleClose(done) {
-      this.$confirm('确认关闭？')
+      this.$confirm('确认？')
         .then(_ => {
           done()
         })
