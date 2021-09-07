@@ -11,7 +11,6 @@
           <div style="margin: 15px 0;"></div>
           <el-checkbox-group v-model="checkedCities.chkcts0" @change="handleCheckedCitiesChange0">
             <el-checkbox v-for="city0 in cities.city0" :label="city0" :key="city0">{{ city0 }}
-              <el-button @click="drawer = true" v-if="city0 === '北京'" type="primary" style="margin-left: 16px;">打开</el-button>
             </el-checkbox>
           </el-checkbox-group>
         </template>
@@ -22,7 +21,8 @@
           <div style="margin: 15px 0;"></div>
           <el-checkbox-group v-model="checkedCities.chkcts1" @change="handleCheckedCitiesChange1">
             <el-checkbox v-for="city1 in cities.city1" :label="city1" :key="city1">{{ city1 }}
-              <el-button @click="drawer = true" v-if="city1 === '其他医嘱'" type="primary" style="margin-left: 16px;">打开</el-button>
+              <el-button @click="drawer0 = true" v-if="city1 === '饮食'" type="primary" style="margin-left: 16px;">填写</el-button>
+              <el-button @click="drawer1 = true" v-if="city1 === '其他医嘱'" type="primary" style="margin-left: 16px;">填写</el-button>
             </el-checkbox>
           </el-checkbox-group>
         </template>
@@ -32,7 +32,10 @@
           <el-checkbox :indeterminate="isIndeterminate2" v-model="checkAll2" @change="handleCheckAllChange2">全选</el-checkbox>
           <div style="margin: 15px 0;"></div>
           <el-checkbox-group v-model="checkedCities.chkcts2" @change="handleCheckedCitiesChange2">
-            <el-checkbox v-for="city2 in cities.city2" :label="city2" :key="city2">{{ city2 }}</el-checkbox>
+            <el-checkbox v-for="city2 in cities.city2" :label="city2" :key="city2">{{ city2 }}
+              <el-button @click="drawer2 = true" v-if="city2.indexOf('常规检查') !== -1" type="primary" style="margin-left: 16px;">选择</el-button>
+              <el-button @click="drawer3 = true" v-if="city2.indexOf('功能性检查') !== -1" type="primary" style="margin-left: 16px;">选择</el-button>
+            </el-checkbox>
           </el-checkbox-group>
         </template>
       </el-collapse-item>
@@ -47,12 +50,71 @@
       </el-collapse-item>
     </el-collapse>
     <el-drawer
-      title="我是标题"
-      :visible.sync="drawer"
+      title="饮食"
+      :visible.sync="drawer0"
       :direction="rtl"
       :before-close="handleClose">
       <span>
-        <el-input v-model="input1" placeholder="请输入内容"></el-input>
+        <el-input v-model="detailcities.dtcts1.input0" placeholder="请输入饮食医嘱" type="textarea" autosize></el-input>
+      </span>
+    </el-drawer>
+    <el-drawer
+      title="其他医嘱"
+      :visible.sync="drawer1"
+      :direction="rtl"
+      :before-close="handleClose">
+      <span>
+        <el-input v-model="detailcities.dtcts1.input1" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+      </span>
+    </el-drawer>
+    <el-drawer
+      title="常规检查"
+      :visible.sync="drawer2"
+      :direction="rtl"
+      :before-close="handleClose">
+      <template>
+        <el-checkbox-group v-model="detailcities.dtcys2.input0">
+          <el-checkbox label="血常规及分类"></el-checkbox>
+          <el-checkbox label="尿常规"></el-checkbox>
+          <el-checkbox label="大便常规＋隐血"></el-checkbox>
+        </el-checkbox-group>
+      </template>
+    </el-drawer>
+    <el-drawer
+      title="功能性检查"
+      :visible.sync="drawer3"
+      :direction="rtl"
+      :before-close="handleClose">
+      <template>
+        <el-checkbox-group v-model="detailcities.dtcys2.input1">
+          <el-checkbox label="肝肾功能"></el-checkbox>
+          <el-checkbox label="电解质"></el-checkbox>
+          <el-checkbox label="血沉"></el-checkbox>
+          <el-checkbox label="凝血功能"></el-checkbox>
+          <el-checkbox label="血型"></el-checkbox>
+          <el-checkbox label="输血前检查"></el-checkbox>
+          <el-checkbox label="Coombs试验"></el-checkbox>
+          <el-checkbox label="心肌酶谱"></el-checkbox>
+          <el-checkbox label="β2-微球蛋白"></el-checkbox>
+        </el-checkbox-group>
+      </template>
+    </el-drawer>
+    <el-drawer
+      title="其他医嘱"
+      :visible.sync="drawer4"
+      :direction="rtl"
+      :before-close="handleClose">
+      <span>
+        <el-input v-model="input" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+      </span>
+    </el-drawer>
+    <el-drawer
+      title="其他医嘱"
+      :visible.sync="drawer5"
+      :direction="rtl"
+      :before-close="handleClose">
+      <span>
+        <el-input v-model="input" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
       </span>
     </el-drawer>
   </div>
@@ -76,6 +138,23 @@ export default {
         chkcts2: [],
         chkcts3: []
       },
+      detailcities: {
+        dtcts0: {},
+        dtcts1: {
+          input0: '',
+          input1: ''
+        },
+        dtcys2: {
+          input0: [],
+          input1: [],
+          input2: ''
+        },
+        dtcts3: {
+          input0: '',
+          input1: '',
+          input2: ''
+        }
+      },
       cities: {
         city0: [
           '询问病史及体格检查',
@@ -93,12 +172,13 @@ export default {
           '其他医嘱'
         ],
         city2: [
-          '血常规及分类、尿常规、大便常规＋隐血',
-          '肝肾功能、电解质、血沉、凝血功能、血型、输血前检查、Coombs试验、心肌酶谱、β2-微球蛋白',
+          '常规检查',
+          '功能性检查',
           '乙肝二对半',
           'X线胸片、心电图、腹部B超、心脏B超、增强CT',
           '输血（有指征时）等支持对症治疗',
-          '其他医嘱'
+          '其他医嘱',
+          '细化检查'
         ],
         city3: [
           '介绍病房环境、设施和设备',
@@ -109,8 +189,12 @@ export default {
       isIndeterminate2: true,
       isIndeterminate3: true,
       activeNames: ['1', '2', '3', '4'],
-      drawer: false,
-      input1: ''
+      drawer0: false,
+      drawer1: false,
+      drawer2: false,
+      drawer3: false,
+      drawer4: false,
+      drawer5: false
     }
   },
   created() {
@@ -166,7 +250,7 @@ export default {
     },
     fetchData() {
       getScan({ id: this.$route.query.id, where: this.$route.query.id }).then(response => {
-        this.cities = response.data
+        this.checkedCities = response.data
       })
     },
     submit() {
@@ -183,7 +267,7 @@ export default {
       console.log(val)
     },
     handleClose(done) {
-      this.$confirm('确认关闭？')
+      this.$confirm('确认？')
         .then(_ => {
           done()
         })
