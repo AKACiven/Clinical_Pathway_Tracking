@@ -35,6 +35,9 @@
             <el-checkbox v-for="city2 in cities.city2" :label="city2" :key="city2">{{ city2 }}
               <el-button @click="drawer2 = true" v-if="city2.indexOf('常规检查') !== -1" type="primary" style="margin-left: 16px;">选择</el-button>
               <el-button @click="drawer3 = true" v-if="city2.indexOf('功能性检查') !== -1" type="primary" style="margin-left: 16px;">选择</el-button>
+              <el-button @click="drawer4 = true" v-if="city2.indexOf('射线检查') !== -1" type="primary" style="margin-left: 16px;">选择</el-button>
+              <el-button @click="drawer5 = true" v-if="city2.indexOf('其他医嘱') !== -1" type="primary" style="margin-left: 16px;">填写</el-button>
+              <el-button @click="drawer6 = true" v-if="city2.indexOf('细化检查') !== -1" type="primary" style="margin-left: 16px;">选择</el-button>
             </el-checkbox>
           </el-checkbox-group>
         </template>
@@ -73,7 +76,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <template>
-        <el-checkbox-group v-model="detailcities.dtcys2.input0">
+        <el-checkbox-group v-model="detailcities.dtcts2.input0">
           <el-checkbox label="血常规及分类"></el-checkbox>
           <el-checkbox label="尿常规"></el-checkbox>
           <el-checkbox label="大便常规＋隐血"></el-checkbox>
@@ -86,7 +89,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <template>
-        <el-checkbox-group v-model="detailcities.dtcys2.input1">
+        <el-checkbox-group v-model="detailcities.dtcts2.input1">
           <el-checkbox label="肝肾功能"></el-checkbox>
           <el-checkbox label="电解质"></el-checkbox>
           <el-checkbox label="血沉"></el-checkbox>
@@ -100,13 +103,19 @@
       </template>
     </el-drawer>
     <el-drawer
-      title="其他医嘱"
+      title="射线检查"
       :visible.sync="drawer4"
       :direction="rtl"
       :before-close="handleClose">
-      <span>
-        <el-input v-model="input" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
-      </span>
+      <template>
+        <el-checkbox-group v-model="detailcities.dtcts2.input2">
+          <el-checkbox label="X线胸片"></el-checkbox>
+          <el-checkbox label="心电图"></el-checkbox>
+          <el-checkbox label="腹部B超"></el-checkbox>
+          <el-checkbox label="心脏B超"></el-checkbox>
+          <el-checkbox label="增强CT"></el-checkbox>
+        </el-checkbox-group>
+      </template>
     </el-drawer>
     <el-drawer
       title="其他医嘱"
@@ -114,8 +123,22 @@
       :direction="rtl"
       :before-close="handleClose">
       <span>
-        <el-input v-model="input" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+        <el-input v-model="detailcities.dtcts2.input3" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
       </span>
+    </el-drawer>
+    <el-drawer
+      title="细化检查"
+      :visible.sync="drawer6"
+      :direction="rtl"
+      :before-close="handleClose">
+      <template>
+        <el-checkbox-group v-model="detailcities.dtcts2.input4">
+          <el-checkbox label="免疫球蛋白重链可变区(IGVH)突变状态"></el-checkbox>
+          <el-checkbox label="染色体核型分析"></el-checkbox>
+          <el-checkbox label="FISH 检测"></el-checkbox>
+          <el-checkbox label="基因突变"></el-checkbox>
+        </el-checkbox-group>
+      </template>
     </el-drawer>
   </div>
 </template>
@@ -144,16 +167,14 @@ export default {
           input0: '',
           input1: ''
         },
-        dtcys2: {
+        dtcts2: {
           input0: [],
           input1: [],
-          input2: ''
+          input2: [],
+          input3: '',
+          input4: []
         },
-        dtcts3: {
-          input0: '',
-          input1: '',
-          input2: ''
-        }
+        dtcts3: {}
       },
       cities: {
         city0: [
@@ -175,7 +196,7 @@ export default {
           '常规检查',
           '功能性检查',
           '乙肝二对半',
-          'X线胸片、心电图、腹部B超、心脏B超、增强CT',
+          '射线检查',
           '输血（有指征时）等支持对症治疗',
           '其他医嘱',
           '细化检查'
@@ -194,11 +215,12 @@ export default {
       drawer2: false,
       drawer3: false,
       drawer4: false,
-      drawer5: false
+      drawer5: false,
+      drawer6: false
     }
   },
   created() {
-    if (!(this.$route.query.id && this.$route.query.where)) {
+    if (!this.$route.query.id && !this.$route.query.where) {
       this.$alert('请先在路径总览进行操作！', '提示', {
         confirmButtonText: '前往路径总览',
         callback: action => {
@@ -249,8 +271,15 @@ export default {
       this.isIndeterminate3 = checkedCount > 0 && checkedCount < this.cities.city3.length
     },
     fetchData() {
-      getScan({ id: this.$route.query.id, where: this.$route.query.id }).then(response => {
-        this.checkedCities = response.data
+      getScan({ id: this.$route.query.id, where: this.$route.query.where }).then(response => {
+        this.checkedCities.chkcts0 = response.data.checkedCities.chkcts0
+        this.checkedCities.chkcts1 = response.data.checkedCities.chkcts1
+        this.checkedCities.chkcts2 = response.data.checkedCities.chkcts2
+        this.checkedCities.chkcts3 = response.data.checkedCities.chkcts3
+        this.detailcities.dtcts0 = response.data.detailcities.dtcts0
+        this.detailcities.dtcts1 = response.data.detailcities.dtcts1
+        this.detailcities.dtcts2 = response.data.detailcities.dtcts2
+        this.detailcities.dtcts3 = response.data.detailcities.dtcts3
       })
     },
     submit() {
