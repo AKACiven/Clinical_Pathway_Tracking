@@ -1,11 +1,13 @@
 <template>
   <div class="app-container">
+    <template>{{ fulltime }}</template>
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="全部患者" name="unfiltered">
         <el-table
           v-loading="listLoading"
           :data="list.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())
       || data.id.toLowerCase().includes(search.toLowerCase())
+      || data.date.toLowerCase().includes(search.toLowerCase())
       || data.bed.toLowerCase().includes(search.toLowerCase()))"
           element-loading-text="Loading"
           border
@@ -31,6 +33,11 @@
           <el-table-column class-name="status-col" label="状态" prop="status" width="300" align="center">
             <template slot-scope="scope">
               <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="入院时间" width="200" sortable prop="date" align="center">
+            <template slot-scope="scope">
+              {{ scope.row.date }}
             </template>
           </el-table-column>
           <el-table-column
@@ -56,6 +63,7 @@
           v-loading="listLoading"
           :data="list2.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())
       || data.id.toLowerCase().includes(search.toLowerCase())
+      || data.date.toLowerCase().includes(search.toLowerCase())
       || data.bed.toLowerCase().includes(search.toLowerCase()))"
           element-loading-text="Loading"
           border
@@ -83,6 +91,11 @@
               <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
             </template>
           </el-table-column>
+          <el-table-column label="入院时间" width="200" sortable prop="date" align="center">
+            <template slot-scope="scope">
+              {{ scope.row.date }}
+            </template>
+          </el-table-column>
           <el-table-column
             align="center"
             fixed="right"
@@ -106,6 +119,7 @@
 
 <script>
 import { getList, getList2 } from '@/api/table'
+import { addtoPath } from "@/api/record";
 
 export default {
   filters: {
@@ -125,7 +139,28 @@ export default {
       list2: null,
       listLoading: true,
       search: '',
-      activeName: 'filtered'
+      activeName: 'filtered',
+      atpitem: {
+        id: null,
+        date: null
+      },
+      date: null,
+      fulltime: new Date()
+    }
+  },
+  mounted() {
+    this.timer = setInterval(() => {
+      this.fulltime = new Date()
+      var d = new Date()
+      var year = d.getFullYear()
+      var month = d.getMonth() + 1
+      var day = d.getDate()
+      this.date = year + '-' + month + '-' + day
+    }, 1000)
+  },
+  beforeDestroy() {
+    if (this.timer) {
+      clearInterval(this.timer)
     }
   },
   created() {
@@ -159,11 +194,15 @@ export default {
       })
     },
     diagn(row) {
-      this.$router.push({
-        path: '',
-        query: {
-          id: row.id
-        }
+      this.atpitem.id = row.id
+      this.atpitem.date = this.date
+      addtoPath(this.atpitem).then(() => {
+        this.$alert('添加到路径！', '消息', {
+          confirmButtonText: '确认',
+          callback: action => {
+            window.location.reload()
+          }
+        })
       })
     }
   }

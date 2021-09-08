@@ -21,13 +21,13 @@
           <div style="margin: 15px 0;"></div>
           <el-checkbox-group v-model="checkedCities.city1" @change="handleCheckedCitiesChange1">
             <el-checkbox v-for="city1 in cities.city1" :label="city1" :key="city1">{{ city1 }}
-              <el-button @click="drawer1 = true" v-if="city1 === '其他医嘱'" type="primary" style="margin-left: 16px;">填写</el-button>
-              <el-button @click="drawer2 = true" v-if="city1.indexOf('苯丁酸氮芥') !== -1" type="primary" style="margin-left: 16px;">剂量</el-button>
-              <el-button @click="drawer3 = true" v-if="city1.indexOf('利妥昔单抗') !== -1" type="primary" style="margin-left: 16px;">剂量</el-button>
-              <el-button @click="drawer4 = true" v-if="city1.indexOf('氟达拉滨') !== -1" type="primary" style="margin-left: 16px;">剂量</el-button>
-              <el-button @click="drawer5 = true" v-if="city1.indexOf('环磷酰胺') !== -1" type="primary" style="margin-left: 16px;">剂量</el-button>
-              <el-button @click="drawer6 = true" v-if="city1.indexOf('甲泼尼龙') !== -1" type="primary" style="margin-left: 16px;">剂量</el-button>
-              <el-button @click="drawer7 = true" v-if="city1.indexOf('伊布替尼') !== -1" type="primary" style="margin-left: 16px;">剂量</el-button>
+              <el-button @click="drawer1 = true" v-if="city1 === '其他医嘱'" type="text" style="margin-left: 16px;">填写</el-button>
+              <el-button @click="drawer2 = true" v-if="city1.indexOf('苯丁酸氮芥') !== -1" type="text" style="margin-left: 16px;">剂量</el-button>
+              <el-button @click="drawer3 = true" v-if="city1.indexOf('利妥昔单抗') !== -1" type="text" style="margin-left: 16px;">剂量</el-button>
+              <el-button @click="drawer4 = true" v-if="city1.indexOf('氟达拉滨') !== -1" type="text" style="margin-left: 16px;">剂量</el-button>
+              <el-button @click="drawer5 = true" v-if="city1.indexOf('环磷酰胺') !== -1" type="text" style="margin-left: 16px;">剂量</el-button>
+              <el-button @click="drawer6 = true" v-if="city1.indexOf('甲泼尼龙') !== -1" type="text" style="margin-left: 16px;">剂量</el-button>
+              <el-button @click="drawer7 = true" v-if="city1.indexOf('伊布替尼') !== -1" type="text" style="margin-left: 16px;">剂量</el-button>
 
             </el-checkbox>
           </el-checkbox-group>
@@ -39,7 +39,7 @@
           <div style="margin: 15px 0;"></div>
           <el-checkbox-group v-model="checkedCities.city2" @change="handleCheckedCitiesChange2">
             <el-checkbox v-for="city2 in cities.city2" :label="city2" :key="city2">{{ city2 }}
-              <el-button @click="drawer0 = true" v-if="city2.indexOf('其他医嘱') !== -1" type="primary" style="margin-left: 16px;">填写</el-button>
+              <el-button @click="drawer0 = true" v-if="city2.indexOf('其他医嘱') !== -1" type="text" style="margin-left: 16px;">填写</el-button>
             </el-checkbox>
           </el-checkbox-group>
         </template>

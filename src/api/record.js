@@ -7,3 +7,11 @@ export function pathSubmit(data) {
     data
   })
 }
+
+export function addtoPath(data) {
+  return request({
+    url: '/home/addtopath',
+    method: 'post',
+    data
+  })
+}

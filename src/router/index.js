@@ -117,6 +117,21 @@ export const asyncRoutes = [
     ]
   },
 
+  {
+    path: '/test',
+    name: 'Test',
+    component: Layout,
+    meta: { title: 'Test', icon: 'el-icon-s-home' },
+    children: [
+      {
+        path: 'time',
+        name: 'time',
+        component: () => import('@/views/test/time'),
+        meta: { title: 'test', icon: 'el-icon-s-home' }
+      }
+    ]
+  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 
