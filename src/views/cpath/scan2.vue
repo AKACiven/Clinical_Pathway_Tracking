@@ -58,7 +58,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <span>
-        <el-input v-model="detailcities.city2.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+        <el-input v-model="detailCities.city2.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
       </span>
     </el-drawer>
     <el-drawer
@@ -67,7 +67,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <span>
-        <el-input v-model="detailcities.city1.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+        <el-input v-model="detailCities.city1.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
       </span>
     </el-drawer>
     <el-drawer
@@ -76,7 +76,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <template>
-        <el-input-number v-model="detailcities.city1.input1" :min="1" :max="7" label="描述文字"></el-input-number>
+        <el-input-number v-model="detailCities.city1.input1" :min="1" :max="7" label="描述文字"></el-input-number>
         <span>天数</span>
       </template>
     </el-drawer>
@@ -86,7 +86,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <template>
-        <el-input-number v-model="detailcities.city1.input2" :min="375" :max="500" label="描述文字"></el-input-number>
+        <el-input-number v-model="detailCities.city1.input2" :min="375" :max="500" label="描述文字"></el-input-number>
         <span>mg/m2，  1天</span>
       </template>
     </el-drawer>
@@ -96,14 +96,14 @@
       :direction="rtl"
       :before-close="handleClose">
       <el-row>
-        <el-input-number v-model="detailcities.city1.input3" :min="375" :max="500" label="描述文字"></el-input-number>
+        <el-input-number v-model="detailCities.city1.input3" :min="375" :max="500" label="描述文字"></el-input-number>
         <span>mg/(m^2*d)</span>
       </el-row>
       <el-row>
         <div style="margin: 15px 0;"></div>
       </el-row>
       <el-row>
-        <el-input-number v-model="detailcities.city1.input4" :min="1" :max="5" label="描述文字"></el-input-number>
+        <el-input-number v-model="detailCities.city1.input4" :min="1" :max="5" label="描述文字"></el-input-number>
         <span>天</span>
       </el-row>
     </el-drawer>
@@ -113,14 +113,14 @@
       :direction="rtl"
       :before-close="handleClose">
       <el-row>
-        <el-input-number v-model="detailcities.city1.input5" :min="20" :max="25" label="描述文字"></el-input-number>
+        <el-input-number v-model="detailCities.city1.input5" :min="20" :max="25" label="描述文字"></el-input-number>
         <span>mg/(m^2*d)</span>
       </el-row>
       <el-row>
         <div style="margin: 15px 0;"></div>
       </el-row>
       <el-row>
-        <el-input-number v-model="detailcities.city1.input6" :min="1" :max="3" label="描述文字"></el-input-number>
+        <el-input-number v-model="detailCities.city1.input6" :min="1" :max="3" label="描述文字"></el-input-number>
         <span>天数</span>
       </el-row>
     </el-drawer>
@@ -130,7 +130,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <template>
-        <el-input-number v-model="detailcities.city1.input7" :min="1" :max="5" label="描述文字"></el-input-number>
+        <el-input-number v-model="detailCities.city1.input7" :min="1" :max="5" label="描述文字"></el-input-number>
         <span>天数</span>
       </template>
     </el-drawer>

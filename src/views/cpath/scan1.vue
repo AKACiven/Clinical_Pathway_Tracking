@@ -53,7 +53,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <span>
-        <el-input v-model="detailcities.city1.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+        <el-input v-model="detailCities.city1.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
       </span>
     </el-drawer>
     <el-drawer
@@ -62,7 +62,7 @@
       :direction="rtl"
       :before-close="handleClose">
       <span>
-        <el-input v-model="detailcities.city2.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+        <el-input v-model="detailCities.city2.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
       </span>
     </el-drawer>
   </div>
