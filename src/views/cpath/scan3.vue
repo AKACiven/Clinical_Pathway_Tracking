@@ -48,7 +48,7 @@
     </el-collapse>
     <el-drawer
       title="其他医嘱"
-      :visible.sync="drawer1"
+      :visible.sync="drawer0"
       :direction="rtl"
       :before-close="handleClose">
       <span>
@@ -76,7 +76,7 @@ export default {
         city2: [],
         city3: []
       },
-      detailcities: {
+      detailCities: {
         city0: {},
         city1: {},
         city2: {
@@ -108,8 +108,10 @@ export default {
       activeNames: ['1', '2', '3', '4'],
       drawer0: false,
       permdata: {
-        detailcities: null,
+        detailCities: null,
         checkedCities: null,
+        id: null,
+        cities: null,
         where: 3
       }
     }
@@ -171,15 +173,17 @@ export default {
         this.checkedCities.city1 = response.data.checkedCities.city1
         this.checkedCities.city2 = response.data.checkedCities.city2
         this.checkedCities.city3 = response.data.checkedCities.city3
-        this.detailcities.city0 = response.data.detailcities.city0
-        this.detailcities.city1 = response.data.detailcities.city1
-        this.detailcities.city2 = response.data.detailcities.city2
-        this.detailcities.city3 = response.data.detailcities.city3
+        this.detailCities.city0 = response.data.detailCities.city0
+        this.detailCities.city1 = response.data.detailCities.city1
+        this.detailCities.city2 = response.data.detailCities.city2
+        this.detailCities.city3 = response.data.detailCities.city3
       })
     },
     submit() {
-      this.permdata.detailcities = this.detailcities
+      this.permdata.detailCities = this.detailCities
       this.permdata.checkedCities = this.checkedCities
+      this.permdata.id = this.$route.query.id
+      this.permdata.cities = this.cities
       pathSubmit(this.permdata).then(() => {
         this.$alert('路径提交成功！', '消息', {
           confirmButtonText: '确认',

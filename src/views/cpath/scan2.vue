@@ -27,8 +27,6 @@
               <el-button @click="drawer4 = true" v-if="city1.indexOf('氟达拉滨') !== -1" type="text" style="margin-left: 16px;">剂量</el-button>
               <el-button @click="drawer5 = true" v-if="city1.indexOf('环磷酰胺') !== -1" type="text" style="margin-left: 16px;">剂量</el-button>
               <el-button @click="drawer6 = true" v-if="city1.indexOf('甲泼尼龙') !== -1" type="text" style="margin-left: 16px;">剂量</el-button>
-              <el-button @click="drawer7 = true" v-if="city1.indexOf('伊布替尼') !== -1" type="text" style="margin-left: 16px;">剂量</el-button>
-
             </el-checkbox>
           </el-checkbox-group>
         </template>
@@ -73,12 +71,67 @@
       </span>
     </el-drawer>
     <el-drawer
-      title="天数"
+      title="苯丁酸氮芥10mg/(m^2*d)"
       :visible.sync="drawer2"
       :direction="rtl"
       :before-close="handleClose">
       <template>
         <el-input-number v-model="detailcities.city1.input1" :min="1" :max="7" label="描述文字"></el-input-number>
+        <span>天数</span>
+      </template>
+    </el-drawer>
+    <el-drawer
+      title="利妥昔单抗"
+      :visible.sync="drawer3"
+      :direction="rtl"
+      :before-close="handleClose">
+      <template>
+        <el-input-number v-model="detailcities.city1.input2" :min="375" :max="500" label="描述文字"></el-input-number>
+        <span>mg/m2，  1天</span>
+      </template>
+    </el-drawer>
+    <el-drawer
+      title="氟达拉滨"
+      :visible.sync="drawer4"
+      :direction="rtl"
+      :before-close="handleClose">
+      <el-row>
+        <el-input-number v-model="detailcities.city1.input3" :min="375" :max="500" label="描述文字"></el-input-number>
+        <span>mg/(m^2*d)</span>
+      </el-row>
+      <el-row>
+        <div style="margin: 15px 0;"></div>
+      </el-row>
+      <el-row>
+        <el-input-number v-model="detailcities.city1.input4" :min="1" :max="5" label="描述文字"></el-input-number>
+        <span>天</span>
+      </el-row>
+    </el-drawer>
+    <el-drawer
+      title="环磷酰胺"
+      :visible.sync="drawer5"
+      :direction="rtl"
+      :before-close="handleClose">
+      <el-row>
+        <el-input-number v-model="detailcities.city1.input5" :min="20" :max="25" label="描述文字"></el-input-number>
+        <span>mg/(m^2*d)</span>
+      </el-row>
+      <el-row>
+        <div style="margin: 15px 0;"></div>
+      </el-row>
+      <el-row>
+        <el-input-number v-model="detailcities.city1.input6" :min="1" :max="3" label="描述文字"></el-input-number>
+        <span>天数</span>
+      </el-row>
+    </el-drawer>
+    <el-drawer
+      title="甲泼尼龙1g/(m^2*d)"
+      :visible.sync="drawer6"
+      :direction="rtl"
+      :before-close="handleClose">
+      <template>
+        <el-input-number v-model="detailcities.city1.input7" :min="1" :max="5" label="描述文字"></el-input-number>
+        <span>天数</span>
       </template>
     </el-drawer>
   </div>
@@ -102,7 +155,7 @@ export default {
         city2: [],
         city3: []
       },
-      detailcities: {
+      detailCities: {
         city0: {},
         city1: {
           input0: '',
@@ -111,7 +164,8 @@ export default {
           input3: null,
           input4: null,
           input5: null,
-          input6: ''
+          input6: null,
+          input7: null
         },
         city2: {
           input0: ''
@@ -133,8 +187,8 @@ export default {
           '利妥昔单抗',
           '氟达拉滨',
           '环磷酰胺',
-          '甲泼尼龙',
-          '伊布替尼',
+          '甲泼尼龙1g/(m^2*d)',
+          '伊布替尼420mg/d',
           '重要脏器保护，碱化水化利尿等治疗',
           '必要时抗感染等支持治疗',
           '其他医嘱'
@@ -165,9 +219,11 @@ export default {
       drawer6: false,
       drawer7: false,
       permdata: {
-        detailcities: null,
+        detailCities: null,
         checkedCities: null,
-        where: 2
+        where: 2,
+        id: null,
+        cities: null
       }
     }
   },
@@ -224,19 +280,21 @@ export default {
     },
     fetchData() {
       getScan({ id: this.$route.query.id, where: this.$route.query.where }).then(response => {
-        this.checkedCities.chkcts0 = response.data.checkedCities.chkcts0
-        this.checkedCities.chkcts1 = response.data.checkedCities.chkcts1
-        this.checkedCities.chkcts2 = response.data.checkedCities.chkcts2
-        this.checkedCities.chkcts3 = response.data.checkedCities.chkcts3
-        this.detailcities.dtcts0 = response.data.detailcities.dtcts0
-        this.detailcities.dtcts1 = response.data.detailcities.dtcts1
-        this.detailcities.dtcts2 = response.data.detailcities.dtcts2
-        this.detailcities.dtcts3 = response.data.detailcities.dtcts3
+        this.checkedCities.city0 = response.data.checkedCities.city0
+        this.checkedCities.city1 = response.data.checkedCities.city1
+        this.checkedCities.city2 = response.data.checkedCities.city2
+        this.checkedCities.city3 = response.data.checkedCities.city3
+        this.detailCities.city0 = response.data.detailCities.city0
+        this.detailCities.city1 = response.data.detailCities.city1
+        this.detailCities.city2 = response.data.detailCities.city2
+        this.detailCities.city3 = response.data.detailCities.city3
       })
     },
     submit() {
-      this.permdata.detailcities = this.detailcities
+      this.permdata.detailCities = this.detailCities
       this.permdata.checkedCities = this.checkedCities
+      this.permdata.id = this.$route.query.id
+      this.permdata.cities = this.cities
       pathSubmit(this.permdata).then(() => {
         this.$alert('路径提交成功！', '消息', {
           confirmButtonText: '确认',

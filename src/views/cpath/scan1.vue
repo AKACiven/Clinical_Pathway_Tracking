@@ -86,7 +86,7 @@ export default {
         city2: [],
         city3: []
       },
-      detailcities: {
+      detailCities: {
         city0: {},
         city1: {
           input0: ''
@@ -129,8 +129,9 @@ export default {
       drawer0: false,
       drawer1: false,
       permdata: {
-        detailcities: null,
+        detailCities: null,
         checkedCities: null,
+        cities: null,
         where: 1
       }
     }
@@ -188,19 +189,21 @@ export default {
     },
     fetchData() {
       getScan({ id: this.$route.query.id, where: this.$route.query.where }).then(response => {
-        this.checkedCities.chkcts0 = response.data.checkedCities.chkcts0
-        this.checkedCities.chkcts1 = response.data.checkedCities.chkcts1
-        this.checkedCities.chkcts2 = response.data.checkedCities.chkcts2
-        this.checkedCities.chkcts3 = response.data.checkedCities.chkcts3
-        this.detailcities.dtcts0 = response.data.detailcities.dtcts0
-        this.detailcities.dtcts1 = response.data.detailcities.dtcts1
-        this.detailcities.dtcts2 = response.data.detailcities.dtcts2
-        this.detailcities.dtcts3 = response.data.detailcities.dtcts3
+        this.checkedCities.city0 = response.data.checkedCities.city0
+        this.checkedCities.city1 = response.data.checkedCities.city1
+        this.checkedCities.city2 = response.data.checkedCities.city2
+        this.checkedCities.city3 = response.data.checkedCities.city3
+        this.detailCities.city0 = response.data.detailCities.city0
+        this.detailCities.city1 = response.data.detailCities.city1
+        this.detailCities.city2 = response.data.detailCities.city2
+        this.detailCities.city3 = response.data.detailCities.city3
       })
     },
     submit() {
-      this.permdata.detailcities = this.detailcities
+      this.permdata.detailCities = this.detailCities
       this.permdata.checkedCities = this.checkedCities
+      this.permdata.id = this.$route.query.id
+      this.permdata.cities = this.cities
       pathSubmit(this.permdata).then(() => {
         this.$alert('路径提交成功！', '消息', {
           confirmButtonText: '确认',
