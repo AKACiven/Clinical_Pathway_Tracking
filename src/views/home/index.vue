@@ -142,9 +142,11 @@ export default {
       activeName: 'filtered',
       atpitem: {
         id: null,
-        date: null
+        date: null,
+        time: null
       },
       date: null,
+      time: null,
       fulltime: new Date()
     }
   },
@@ -155,7 +157,11 @@ export default {
       var year = d.getFullYear()
       var month = d.getMonth() + 1
       var day = d.getDate()
+      var hour = (d.getHours() < 10 ? '0' + (d.getHours()) : d.getHours())
+      var minute = (d.getMinutes() < 10 ? '0' + (d.getMinutes()) : d.getMinutes())
+      var second = (d.getSeconds() < 10 ? '0' + (d.getSeconds()) : d.getSeconds())
       this.date = year + '-' + month + '-' + day
+      this.time = hour + ':' + minute + ':' + second
     }, 1000)
   },
   beforeDestroy() {
@@ -196,6 +202,7 @@ export default {
     diagn(row) {
       this.atpitem.id = row.id
       this.atpitem.date = this.date
+      this.atpitem.time = this.time
       addtoPath(this.atpitem).then(() => {
         this.$alert('添加到路径！', '消息', {
           confirmButtonText: '确认',
