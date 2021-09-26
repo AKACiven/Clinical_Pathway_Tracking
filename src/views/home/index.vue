@@ -37,7 +37,7 @@
           </el-table-column>
           <el-table-column label="入院时间" width="200" sortable prop="date" align="center">
             <template slot-scope="scope">
-              {{ scope.row.date }}
+              {{ scope.row.date + "  " + scope.row.time }}
             </template>
           </el-table-column>
           <el-table-column
@@ -93,7 +93,7 @@
           </el-table-column>
           <el-table-column label="入院时间" width="200" sortable prop="date" align="center">
             <template slot-scope="scope">
-              {{ scope.row.date }}
+              {{ scope.row.date + "  " + scope.row.time }}
             </template>
           </el-table-column>
           <el-table-column
@@ -108,6 +108,7 @@
                 placeholder="搜索信息"/>
             </template>
             <template slot-scope="scope">
+              <el-button v-if=" scope.row.status !== '未加入' " type="warning" size="small" @click="evaluate(scope.row)" >评估</el-button>
               <el-button v-if=" scope.row.status !== '未加入' " type="success" size="small" @click="edit(scope.row)" >查看详情</el-button>
             </template>
           </el-table-column>
@@ -119,8 +120,7 @@
 
 <script>
 import { getList, getList2 } from '@/api/table'
-import { addtoPath } from "@/api/record";
-
+import { addtoPath } from '@/api/record'
 export default {
   filters: {
     statusFilter(status) {
@@ -143,7 +143,57 @@ export default {
       atpitem: {
         id: null,
         date: null,
-        time: null
+        time: null,
+        checkedCities: {
+          city0: [],
+          city1: [],
+          city2: [],
+          city3: []
+        },
+        detailCities: {
+          city0: {},
+          city1: {
+            input0: '',
+            input1: ''
+          },
+          city2: {
+            input0: [],
+            input1: [],
+            input2: [],
+            input3: '',
+            input4: []
+          },
+          city3: {}
+        },
+        cities: {
+          city0: [
+            '询问病史及体格检查',
+            '完成病历书写',
+            '开实验室检查单',
+            '对症支持治疗',
+            '病情告知，必要时向患者家属告病重或病危通知，并签署病重或病危通知书',
+            '患者家属签署各种必要的知情同意书'
+          ],
+          city1: [
+            '血液病护理常规',
+            '二级护理',
+            '饮食',
+            '视病情通知病重或病危',
+            '其他医嘱'
+          ],
+          city2: [
+            '常规检查',
+            '功能性检查',
+            '乙肝二对半',
+            '射线检查',
+            '输血（有指征时）等支持对症治疗',
+            '其他医嘱',
+            '细化检查'
+          ],
+          city3: [
+            '介绍病房环境、设施和设备',
+            '入院护理评估',
+            '宣教'] }
       },
       date: null,
       time: null,

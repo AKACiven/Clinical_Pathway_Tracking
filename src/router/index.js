@@ -48,7 +48,7 @@ export const constantRoutes = [
     path: '/404',
     component: () => import('@/views/404'),
     hidden: true
-  },
+  }
 
 ]
 
@@ -93,28 +93,40 @@ export const asyncRoutes = [
       {
         path: 'Scan0',
         name: 'Scan0',
+        hidden: true,
         component: () => import('@/views/cpath/scan0'),
         meta: { title: '第1阶段', icon: 'el-icon-s-home' }
       },
       {
         path: 'Scan1',
         name: 'Scan1',
+        hidden: true,
         component: () => import('@/views/cpath/scan1'),
         meta: { title: '第2阶段', icon: 'el-icon-s-home' }
       },
       {
         path: 'Scan2',
         name: 'Scan2',
+        hidden: true,
         component: () => import('@/views/cpath/scan2'),
         meta: { title: '第3阶段', icon: 'el-icon-s-home' }
       },
       {
         path: 'Scan3',
         name: 'Scan3',
+        hidden: true,
         component: () => import('@/views/cpath/scan3'),
         meta: { title: '第4阶段', icon: 'el-icon-s-home' }
       }
     ]
+  },
+
+  {
+    path: '/Evaluate',
+    name: 'Evaluate',
+    hidden: true,
+    component: () => import('@/views/evaluate/index'),
+    meta: { title: '每日评估', icon: 'el-icon-s-home' }
   },
 
   {
