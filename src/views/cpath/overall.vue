@@ -14,6 +14,16 @@
           {{ scope.row.stage }}
         </template>
       </el-table-column>
+      <el-table-column label="开始时间" width="200" sortable prop="date" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.beginDate + "  " + scope.row.beginTime }}
+        </template>
+      </el-table-column>
+      <el-table-column label="结束时间" width="200" sortable prop="date" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.endDate + "  " + scope.row.endTime }}
+        </template>
+      </el-table-column>
       <el-table-column class-name="status-col" label="状态" prop="status" width="300" align="center">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
@@ -98,6 +108,16 @@ export default {
       getPath({ id: this.$route.query.id }).then(response => {
         this.list = response.data
         this.listLoading = false
+        for (var i = 0; i < 4; i++) {
+          if (this.list[i].beginDate == null) {
+            this.list[i].beginDate = '---'
+            this.list[i].beginTime = '---'
+          }
+          if (this.list[i].endDate == null) {
+            this.list[i].endDate = '---'
+            this.list[i].endTime = '---'
+          }
+        }
       })
     },
     edit(row) {

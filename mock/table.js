@@ -40,22 +40,38 @@ const path = ({
     {
       'stage': '第1天（入院日）',
       'status': '已完成',
-      'where': '0'
+      'where': '0',
+      'beginDate': '2021-9-11',
+      'beginTime': '12:10:23',
+      'endDate': null,
+      'endTime': null
     },
     {
       'stage': '第2天',
       'status': '正在进行',
-      'where': '1'
+      'where': '1',
+      'beginDate': null,
+      'beginTime': null,
+      'endDate': '2021-9-11',
+      'endTime': '12:10:23'
     },
     {
       'stage': '第3~13天',
       'status': '准备进行',
-      'where': '2'
+      'where': '2',
+      'beginDate': '2021-9-11',
+      'beginTime': '12:10:23',
+      'endDate': null,
+      'endTime': null
     },
     {
       'stage': '第14天（出院日）',
       'status': '准备进行',
-      'where': '3'
+      'where': '3',
+      'beginDate': '2021-9-11',
+      'beginTime': '12:10:23',
+      'endDate': null,
+      'endTime': null
     }
   ]
 })

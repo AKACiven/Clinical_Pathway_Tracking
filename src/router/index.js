@@ -124,9 +124,17 @@ export const asyncRoutes = [
   {
     path: '/Evaluate',
     name: 'Evaluate',
+    component: Layout,
     hidden: true,
-    component: () => import('@/views/evaluate/index'),
-    meta: { title: '每日评估', icon: 'el-icon-s-home' }
+    meta: { title: '评估', icon: 'el-icon-s-home' },
+    children: [
+      {
+        path: 'Index',
+        name: 'Index',
+        component: () => import('@/views/evaluate/index'),
+        meta: { title: 'test', icon: 'el-icon-s-home' }
+      }
+    ]
   },
 
   {

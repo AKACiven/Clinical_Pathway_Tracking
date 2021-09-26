@@ -35,11 +35,11 @@
               <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
             </template>
           </el-table-column>
-          <el-table-column label="入院时间" width="200" sortable prop="date" align="center">
-            <template slot-scope="scope">
-              {{ scope.row.date + "  " + scope.row.time }}
-            </template>
-          </el-table-column>
+<!--          <el-table-column label="入院时间" width="200" sortable prop="date" align="center">-->
+<!--            <template slot-scope="scope">-->
+<!--              {{ scope.row.date + "  " + scope.row.time }}-->
+<!--            </template>-->
+<!--          </el-table-column>-->
           <el-table-column
             align="center"
             fixed="right"
@@ -205,8 +205,9 @@ export default {
       this.fulltime = new Date()
       var d = new Date()
       var year = d.getFullYear()
-      var month = d.getMonth() + 1
-      var day = d.getDate()
+      // var month = d.getMonth() + 1
+      var month = ((d.getMonth() + 1) < 10 ? '0' + (d.getMonth() + 1) : (d.getMonth() + 1))
+      var day = (d.getDate() < 10 ? '0' + (d.getDate()) : d.getDate())
       var hour = (d.getHours() < 10 ? '0' + (d.getHours()) : d.getHours())
       var minute = (d.getMinutes() < 10 ? '0' + (d.getMinutes()) : d.getMinutes())
       var second = (d.getSeconds() < 10 ? '0' + (d.getSeconds()) : d.getSeconds())
@@ -244,6 +245,14 @@ export default {
     edit(row) {
       this.$router.push({
         path: '/Path/Overall',
+        query: {
+          id: row.id
+        }
+      })
+    },
+    evaluate(row) {
+      this.$router.push({
+        path: '/Evaluate/Index',
         query: {
           id: row.id
         }
