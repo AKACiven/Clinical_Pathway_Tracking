@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <template>{{ fulltime }}</template>
+<!--    <template>{{ fulltime }}</template>-->
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="全部患者" name="unfiltered">
         <el-table

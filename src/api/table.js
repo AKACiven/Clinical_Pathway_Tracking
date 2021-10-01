@@ -31,3 +31,11 @@ export function getScan(params) {
     params
   })
 }
+
+export function getProcess(params) {
+  return request({
+    url: '/evaluate/getprocess',
+    method: 'get',
+    params
+  })
+}

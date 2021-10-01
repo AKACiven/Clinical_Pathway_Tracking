@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <template>{{ fulltime }}</template>
+<!--    <template>{{ fulltime }}</template>-->
     <el-table
       v-loading="listLoading"
       :data="list.filter(data => !search || data.stage.toLowerCase().includes(search.toLowerCase()))"

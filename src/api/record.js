@@ -15,3 +15,11 @@ export function addtoPath(data) {
     data
   })
 }
+
+export function eValuate(data) {
+  return request({
+    url: '/evaluate',
+    method: 'post',
+    data
+  })
+}
