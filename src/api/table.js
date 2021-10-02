@@ -39,3 +39,12 @@ export function getProcess(params) {
     params
   })
 }
+
+// 变异原因，如果未变异，传空字符串
+export function getOut(params) {
+  return request({
+    url: '/out',
+    method: 'get',
+    params
+  })
+}

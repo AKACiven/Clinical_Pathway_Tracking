@@ -3,6 +3,11 @@
     {{date}}
     {{fulltime}}
   </div>
+<!--  <el-form label-width="20px">-->
+<!--    <el-form-item label="">-->
+
+<!--    </el-form-item>-->
+<!--  </el-form>-->
 </template>
 
 <script>

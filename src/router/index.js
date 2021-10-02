@@ -79,6 +79,7 @@ export const asyncRoutes = [
   {
     path: '/Path',
     component: Layout,
+    redirect: '/Home',
     meta: {
       title: '路径管理',
       icon: 'form'
@@ -88,35 +89,35 @@ export const asyncRoutes = [
         path: 'Overall',
         name: 'Overall',
         component: () => import('@/views/cpath/overall'),
-        meta: { title: '路径总览', icon: 'el-icon-s-home' }
+        meta: { title: '路径总览', icon: 'el-icon-s-order' }
       },
       {
         path: 'Scan0',
         name: 'Scan0',
         hidden: true,
         component: () => import('@/views/cpath/scan0'),
-        meta: { title: '第1阶段', icon: 'el-icon-s-home' }
+        meta: { title: '第1阶段', icon: 'el-icon-s-ticket' }
       },
       {
         path: 'Scan1',
         name: 'Scan1',
         hidden: true,
         component: () => import('@/views/cpath/scan1'),
-        meta: { title: '第2阶段', icon: 'el-icon-s-home' }
+        meta: { title: '第2阶段', icon: 'el-icon-s-ticket' }
       },
       {
         path: 'Scan2',
         name: 'Scan2',
         hidden: true,
         component: () => import('@/views/cpath/scan2'),
-        meta: { title: '第3阶段', icon: 'el-icon-s-home' }
+        meta: { title: '第3阶段', icon: 'el-icon-s-ticket' }
       },
       {
         path: 'Scan3',
         name: 'Scan3',
         hidden: true,
         component: () => import('@/views/cpath/scan3'),
-        meta: { title: '第4阶段', icon: 'el-icon-s-home' }
+        meta: { title: '第4阶段', icon: 'el-icon-s-ticket' }
       }
     ]
   },
@@ -125,6 +126,7 @@ export const asyncRoutes = [
     path: '/Evaluate',
     name: 'Evaluate',
     component: Layout,
+    redirect: '/Home',
     hidden: true,
     meta: { title: '评估', icon: 'el-icon-s-home' },
     children: [
@@ -133,6 +135,13 @@ export const asyncRoutes = [
         name: 'Index',
         component: () => import('@/views/evaluate/index'),
         meta: { title: 'test', icon: 'el-icon-s-home' }
+      },
+      {
+        path: 'Ground',
+        name: 'Ground',
+        hidden: true,
+        component: () => import('@/views/evaluate/ground'),
+        meta: { title: '变异原因', icon: 'el-icon-s-ticket' }
       }
     ]
   },
@@ -141,6 +150,7 @@ export const asyncRoutes = [
     path: '/test',
     name: 'Test',
     component: Layout,
+    hidden: true,
     meta: { title: 'Test', icon: 'el-icon-s-home' },
     children: [
       {

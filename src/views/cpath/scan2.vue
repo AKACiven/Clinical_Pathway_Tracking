@@ -57,82 +57,106 @@
       :visible.sync="drawer0"
       :direction="rtl"
       :before-close="handleClose">
-      <span>
-        <el-input v-model="detailCities.city2.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
-      </span>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <el-input v-model="detailCities.city2.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+        </el-form-item>
+      </el-form>
     </el-drawer>
     <el-drawer
       title="其他医嘱"
       :visible.sync="drawer1"
       :direction="rtl"
       :before-close="handleClose">
-      <span>
-        <el-input v-model="detailCities.city1.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
-      </span>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <el-input v-model="detailCities.city1.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+        </el-form-item>
+      </el-form>
     </el-drawer>
     <el-drawer
       title="苯丁酸氮芥10mg/(m^2*d)"
       :visible.sync="drawer2"
       :direction="rtl"
       :before-close="handleClose">
-      <template>
-        <el-input-number v-model="detailCities.city1.input1" :min="1" :max="7" label="描述文字"></el-input-number>
-        <span>天数</span>
-      </template>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <template>
+            <el-input-number v-model="detailCities.city1.input1" :min="1" :max="7" label="描述文字"></el-input-number>
+            <span>天数</span>
+          </template>
+        </el-form-item>
+      </el-form>
     </el-drawer>
     <el-drawer
       title="利妥昔单抗"
       :visible.sync="drawer3"
       :direction="rtl"
       :before-close="handleClose">
-      <template>
-        <el-input-number v-model="detailCities.city1.input2" :min="375" :max="500" label="描述文字"></el-input-number>
-        <span>mg/m2，  1天</span>
-      </template>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <template>
+            <el-input-number v-model="detailCities.city1.input2" :min="375" :max="500" label="描述文字"></el-input-number>
+            <span>mg/m2，  1天</span>
+          </template>
+        </el-form-item>
+      </el-form>
     </el-drawer>
     <el-drawer
       title="氟达拉滨"
       :visible.sync="drawer4"
       :direction="rtl"
       :before-close="handleClose">
-      <el-row>
-        <el-input-number v-model="detailCities.city1.input3" :min="375" :max="500" label="描述文字"></el-input-number>
-        <span>mg/(m^2*d)</span>
-      </el-row>
-      <el-row>
-        <div style="margin: 15px 0;"></div>
-      </el-row>
-      <el-row>
-        <el-input-number v-model="detailCities.city1.input4" :min="1" :max="5" label="描述文字"></el-input-number>
-        <span>天</span>
-      </el-row>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <el-row>
+            <el-input-number v-model="detailCities.city1.input3" :min="375" :max="500" label="描述文字"></el-input-number>
+            <span>mg/(m^2*d)</span>
+          </el-row>
+          <el-row>
+            <div style="margin: 15px 0;"></div>
+          </el-row>
+          <el-row>
+            <el-input-number v-model="detailCities.city1.input4" :min="1" :max="5" label="描述文字"></el-input-number>
+            <span>天</span>
+          </el-row>
+        </el-form-item>
+      </el-form>
     </el-drawer>
     <el-drawer
       title="环磷酰胺"
       :visible.sync="drawer5"
       :direction="rtl"
       :before-close="handleClose">
-      <el-row>
-        <el-input-number v-model="detailCities.city1.input5" :min="20" :max="25" label="描述文字"></el-input-number>
-        <span>mg/(m^2*d)</span>
-      </el-row>
-      <el-row>
-        <div style="margin: 15px 0;"></div>
-      </el-row>
-      <el-row>
-        <el-input-number v-model="detailCities.city1.input6" :min="1" :max="3" label="描述文字"></el-input-number>
-        <span>天数</span>
-      </el-row>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <el-row>
+            <el-input-number v-model="detailCities.city1.input5" :min="20" :max="25" label="描述文字"></el-input-number>
+            <span>mg/(m^2*d)</span>
+          </el-row>
+          <el-row>
+            <div style="margin: 15px 0;"></div>
+          </el-row>
+          <el-row>
+            <el-input-number v-model="detailCities.city1.input6" :min="1" :max="3" label="描述文字"></el-input-number>
+            <span>天数</span>
+          </el-row>
+        </el-form-item>
+      </el-form>
     </el-drawer>
     <el-drawer
       title="甲泼尼龙1g/(m^2*d)"
       :visible.sync="drawer6"
       :direction="rtl"
       :before-close="handleClose">
-      <template>
-        <el-input-number v-model="detailCities.city1.input7" :min="1" :max="5" label="描述文字"></el-input-number>
-        <span>天数</span>
-      </template>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <template>
+            <el-input-number v-model="detailCities.city1.input7" :min="1" :max="5" label="描述文字"></el-input-number>
+            <span>天数</span>
+          </template>
+        </el-form-item>
+      </el-form>
     </el-drawer>
   </div>
 </template>

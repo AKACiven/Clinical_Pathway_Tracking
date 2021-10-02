@@ -57,88 +57,110 @@
       :visible.sync="drawer0"
       :direction="rtl"
       :before-close="handleClose">
-      <span>
-        <el-input v-model="detailCities.city1.input0" placeholder="请输入饮食医嘱" type="textarea" autosize></el-input>
-      </span>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <el-input v-model="detailCities.city1.input0" placeholder="请输入饮食医嘱" type="textarea" autosize></el-input>
+        </el-form-item>
+      </el-form>
     </el-drawer>
     <el-drawer
       title="其他医嘱"
       :visible.sync="drawer1"
       :direction="rtl"
       :before-close="handleClose">
-      <span>
-        <el-input v-model="detailCities.city1.input1" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
-      </span>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <el-input v-model="detailCities.city1.input1" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+        </el-form-item>
+      </el-form>
     </el-drawer>
     <el-drawer
       title="常规检查"
       :visible.sync="drawer2"
       :direction="rtl"
       :before-close="handleClose">
-      <template>
-        <el-checkbox-group v-model="detailCities.city2.input0">
-          <el-checkbox label="血常规及分类"></el-checkbox>
-          <el-checkbox label="尿常规"></el-checkbox>
-          <el-checkbox label="大便常规＋隐血"></el-checkbox>
-        </el-checkbox-group>
-      </template>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <template>
+            <el-checkbox-group v-model="detailCities.city2.input0">
+              <el-checkbox label="血常规及分类"></el-checkbox>
+              <el-checkbox label="尿常规"></el-checkbox>
+              <el-checkbox label="大便常规＋隐血"></el-checkbox>
+            </el-checkbox-group>
+          </template>
+        </el-form-item>
+      </el-form>
     </el-drawer>
     <el-drawer
       title="功能性检查"
       :visible.sync="drawer3"
       :direction="rtl"
       :before-close="handleClose">
-      <template>
-        <el-checkbox-group v-model="detailCities.city2.input1">
-          <el-checkbox label="肝肾功能"></el-checkbox>
-          <el-checkbox label="电解质"></el-checkbox>
-          <el-checkbox label="血沉"></el-checkbox>
-          <el-checkbox label="凝血功能"></el-checkbox>
-          <el-checkbox label="血型"></el-checkbox>
-          <el-checkbox label="输血前检查"></el-checkbox>
-          <el-checkbox label="Coombs试验"></el-checkbox>
-          <el-checkbox label="心肌酶谱"></el-checkbox>
-          <el-checkbox label="β2-微球蛋白"></el-checkbox>
-        </el-checkbox-group>
-      </template>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <template>
+            <el-checkbox-group v-model="detailCities.city2.input1">
+              <el-checkbox label="肝肾功能"></el-checkbox>
+              <el-checkbox label="电解质"></el-checkbox>
+              <el-checkbox label="血沉"></el-checkbox>
+              <el-checkbox label="凝血功能"></el-checkbox>
+              <el-checkbox label="血型"></el-checkbox>
+              <el-checkbox label="输血前检查"></el-checkbox>
+              <el-checkbox label="Coombs试验"></el-checkbox>
+              <el-checkbox label="心肌酶谱"></el-checkbox>
+              <el-checkbox label="β2-微球蛋白"></el-checkbox>
+            </el-checkbox-group>
+          </template>
+        </el-form-item>
+      </el-form>
     </el-drawer>
     <el-drawer
       title="射线检查"
       :visible.sync="drawer4"
       :direction="rtl"
       :before-close="handleClose">
-      <template>
-        <el-checkbox-group v-model="detailCities.city2.input2">
-          <el-checkbox label="X线胸片"></el-checkbox>
-          <el-checkbox label="心电图"></el-checkbox>
-          <el-checkbox label="腹部B超"></el-checkbox>
-          <el-checkbox label="心脏B超"></el-checkbox>
-          <el-checkbox label="增强CT"></el-checkbox>
-        </el-checkbox-group>
-      </template>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <template>
+            <el-checkbox-group v-model="detailCities.city2.input2">
+              <el-checkbox label="X线胸片"></el-checkbox>
+              <el-checkbox label="心电图"></el-checkbox>
+              <el-checkbox label="腹部B超"></el-checkbox>
+              <el-checkbox label="心脏B超"></el-checkbox>
+              <el-checkbox label="增强CT"></el-checkbox>
+            </el-checkbox-group>
+          </template>
+        </el-form-item>
+      </el-form>
     </el-drawer>
     <el-drawer
       title="其他医嘱"
       :visible.sync="drawer5"
       :direction="rtl"
       :before-close="handleClose">
-      <span>
-        <el-input v-model="detailCities.city2.input3" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
-      </span>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <el-input v-model="detailCities.city2.input3" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+        </el-form-item>
+      </el-form>
     </el-drawer>
     <el-drawer
       title="细化检查"
       :visible.sync="drawer6"
       :direction="rtl"
       :before-close="handleClose">
-      <template>
-        <el-checkbox-group v-model="detailCities.city2.input4">
-          <el-checkbox label="免疫球蛋白重链可变区(IGVH)突变状态"></el-checkbox>
-          <el-checkbox label="染色体核型分析"></el-checkbox>
-          <el-checkbox label="FISH 检测"></el-checkbox>
-          <el-checkbox label="基因突变"></el-checkbox>
-        </el-checkbox-group>
-      </template>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <template>
+            <el-checkbox-group v-model="detailCities.city2.input4">
+              <el-checkbox label="免疫球蛋白重链可变区(IGVH)突变状态"></el-checkbox>
+              <el-checkbox label="染色体核型分析"></el-checkbox>
+              <el-checkbox label="FISH 检测"></el-checkbox>
+              <el-checkbox label="基因突变"></el-checkbox>
+            </el-checkbox-group>
+          </template>
+        </el-form-item>
+      </el-form>
     </el-drawer>
   </div>
 </template>

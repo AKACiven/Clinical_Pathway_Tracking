@@ -108,7 +108,8 @@
                 placeholder="搜索信息"/>
             </template>
             <template slot-scope="scope">
-              <el-button v-if=" scope.row.status !== '未加入' " type="warning" size="small" @click="evaluate(scope.row)" >评估</el-button>
+              <el-button v-if=" scope.row.status === '变异' " type="warning" size="small" @click="ground(scope.row)" >变异原因</el-button>
+              <el-button v-if=" scope.row.status === '执行中' " type="warning" size="small" @click="evaluate(scope.row)" >评估</el-button>
               <el-button v-if=" scope.row.status !== '未加入' " type="success" size="small" @click="edit(scope.row)" >查看详情</el-button>
             </template>
           </el-table-column>
@@ -253,6 +254,14 @@ export default {
     evaluate(row) {
       this.$router.push({
         path: '/Evaluate/Index',
+        query: {
+          id: row.id
+        }
+      })
+    },
+    ground(row) {
+      this.$router.push({
+        path: '/Evaluate/Ground',
         query: {
           id: row.id
         }

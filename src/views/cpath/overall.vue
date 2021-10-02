@@ -41,7 +41,7 @@
             placeholder="搜索信息"/>
         </template>
         <template slot-scope="scope">
-          <el-button @click="edit(scope.row)" type="primary" size="small">查看详情</el-button>
+          <el-button v-if="scope.row.beginDate !== '---'"  @click="edit(scope.row)" type="primary" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -50,7 +50,7 @@
 
 <script>
 
-import { getPath } from '@/api/table'
+import { getOut, getPath } from '@/api/table'
 
 export default {
   filters: {
@@ -70,7 +70,8 @@ export default {
       search: '',
       id: '',
       date: null,
-      fulltime: new Date()
+      fulltime: new Date(),
+      ground: ''
     }
   },
   mounted() {
@@ -109,11 +110,11 @@ export default {
         this.list = response.data
         this.listLoading = false
         for (var i = 0; i < 4; i++) {
-          if (this.list[i].beginDate == null) {
+          if (this.list[i].beginDate === 'null' || this.list[i].beginDate === null) {
             this.list[i].beginDate = '---'
             this.list[i].beginTime = '---'
           }
-          if (this.list[i].endDate == null) {
+          if (this.list[i].endDate === 'null' || this.list[i].endDate === null) {
             this.list[i].endDate = '---'
             this.list[i].endTime = '---'
           }

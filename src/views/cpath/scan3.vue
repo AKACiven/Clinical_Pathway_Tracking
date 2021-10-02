@@ -51,9 +51,11 @@
       :visible.sync="drawer0"
       :direction="rtl"
       :before-close="handleClose">
-      <span>
-        <el-input v-model="detailCities.city2.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
-      </span>
+      <el-form label-width="20px">
+        <el-form-item label="">
+          <el-input v-model="detailCities.city2.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+        </el-form-item>
+      </el-form>
     </el-drawer>
   </div>
 </template>
