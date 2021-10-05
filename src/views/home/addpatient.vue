@@ -1,14 +1,14 @@
 <template>
   <div class="app-container">
-    <el-form label-width="80px">
+    <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="姓名">
-        <el-input v-model="form.name" placeholder="请输患者姓名"></el-input>
+        <el-input v-model="form.name" placeholder="请输患者姓名" style="width: 30%;"></el-input>
       </el-form-item>
       <el-form-item label="ID">
-        <el-input v-model="form.id" readonlys></el-input>
+        <el-input v-model="form.id" readonlys style="width: 30%;"></el-input>
       </el-form-item>
       <el-form-item label="床位">
-        <el-input v-model="form.bed" readonly></el-input>
+        <el-input v-model="form.bed" readonly style="width: 30%;"></el-input>
       </el-form-item>
       <el-form-item label="">
         <el-button type="primary" size="small" @click="addname" >提交</el-button>
@@ -47,7 +47,10 @@ export default {
           confirmButtonText: '确认',
           callback: action => {
             this.$router.push({
-              path: '/Home'
+              path: '/Home',
+              query: {
+                switch: 1
+              }
             })
           }
         })

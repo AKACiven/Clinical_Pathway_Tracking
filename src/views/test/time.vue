@@ -1,7 +1,8 @@
 <template>
   <div class="app-container">
-    {{date}}
-    {{fulltime}}
+    <el-button type="primary" size="small" @click="addname" >提交</el-button>
+<!--    {{date}}-->
+<!--    {{fulltime}}-->
   </div>
 <!--  <el-form label-width="20px">-->
 <!--    <el-form-item label="">-->
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -31,6 +33,16 @@ export default {
   beforeDestroy() {
     if (this.timer) {
       clearInterval(this.timer)
+    }
+  },
+  methods: {
+    addname() {
+      this.$router.push({
+        path: '/Home',
+        query: {
+          switch: 1
+        }
+      })
     }
   }
 }

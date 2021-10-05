@@ -157,7 +157,7 @@ export const asyncRoutes = [
     path: '/test',
     name: 'Test',
     component: Layout,
-    hidden: true,
+    // hidden: true,
     meta: { title: 'Test', icon: 'el-icon-s-home' },
     children: [
       {

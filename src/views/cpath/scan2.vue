@@ -59,7 +59,7 @@
       :before-close="handleClose">
       <el-form label-width="20px">
         <el-form-item label="">
-          <el-input v-model="detailCities.city2.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+          <el-input v-model="detailCities.city2.input0" placeholder="请输入医嘱内容" type="textarea" autosize style="width: 96%;"></el-input>
         </el-form-item>
       </el-form>
     </el-drawer>
@@ -70,7 +70,7 @@
       :before-close="handleClose">
       <el-form label-width="20px">
         <el-form-item label="">
-          <el-input v-model="detailCities.city1.input0" placeholder="请输入医嘱内容" type="textarea" autosize></el-input>
+          <el-input v-model="detailCities.city1.input0" placeholder="请输入医嘱内容" type="textarea" autosize style="width: 96%;"></el-input>
         </el-form-item>
       </el-form>
     </el-drawer>
@@ -323,7 +323,12 @@ export default {
         this.$alert('路径提交成功！', '消息', {
           confirmButtonText: '确认',
           callback: action => {
-            // window.location.reload()
+            this.$router.push({
+              path: '/Path/Overall',
+              query: {
+                id: this.$route.query.id
+              }
+            })
           }
         })
       })

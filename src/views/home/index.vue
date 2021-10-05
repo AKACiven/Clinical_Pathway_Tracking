@@ -233,6 +233,9 @@ export default {
         this.list = response.data
         this.listLoading = false
       })
+      if (this.$route.query.switch) {
+        this.activeName = 'unfiltered'
+      }
     },
     fetchData2() {
       this.listLoading = true
