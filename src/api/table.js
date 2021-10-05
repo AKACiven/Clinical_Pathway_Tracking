@@ -48,3 +48,21 @@ export function getOut(params) {
     params
   })
 }
+
+export function addPat(params) {
+  return request({
+    url: '/addpat',
+    method: 'get',
+    params
+  })
+}
+
+export function addPatName(data) {
+  return request({
+    url: '/addpat',
+    method: 'post',
+    data
+  })
+}
+
+

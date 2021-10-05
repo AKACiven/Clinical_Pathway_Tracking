@@ -72,6 +72,13 @@ export const asyncRoutes = [
         name: 'Home',
         component: () => import('@/views/home/index'),
         meta: { title: '患者列表', icon: 'el-icon-s-home' }
+      },
+      {
+        path: 'AddPatient',
+        name: 'AddPatient',
+        hidden: true,
+        component: () => import('@/views/home/addpatient'),
+        meta: { title: '添加患者', icon: 'el-icon-s-home' }
       }
     ]
   },

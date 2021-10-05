@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <el-button type="primary" @click="addpat" >添加患者</el-button>
 <!--    <template>{{ fulltime }}</template>-->
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="全部患者" name="unfiltered">
@@ -278,6 +279,11 @@ export default {
             window.location.reload()
           }
         })
+      })
+    },
+    addpat() {
+      this.$router.push({
+        path: '/AddPatient'
       })
     }
   }
