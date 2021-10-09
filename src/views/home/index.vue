@@ -109,20 +109,59 @@
                 placeholder="搜索信息"/>
             </template>
             <template slot-scope="scope">
-              <el-button v-if=" scope.row.status === '变异' " type="warning" size="small" @click="ground(scope.row)" >变异原因</el-button>
-              <el-button v-if=" scope.row.status === '执行中' " type="warning" size="small" @click="evaluate(scope.row)" >评估</el-button>
+              <el-button v-if=" scope.row.status === '变异' " type="warning" size="small" @click="dialog1 = true; ground2(scope.row)" >变异原因</el-button>
+<!--              <el-button v-if=" scope.row.status === '变异' " type="warning" size="small" @click="ground1(scope.row)" >变异原因</el-button>-->
+<!--              <el-button v-if=" scope.row.status === '执行中' " type="warning" size="small" @click="evaluate1(scope.row)" >评估</el-button>-->
+              <el-button v-if=" scope.row.status === '执行中' " type="warning" size="small" @click="dialog2 = true; evaluate2(scope.row)" >评估</el-button>
               <el-button v-if=" scope.row.status !== '未加入' " type="success" size="small" @click="edit(scope.row)" >查看详情</el-button>
             </template>
           </el-table-column>
         </el-table>
       </el-tab-pane>
     </el-tabs>
+    <el-dialog title="变异原因" :visible.sync="dialog1">
+      <el-form v-if="ground !== ''" label-width="90px">
+        <el-form-item label="变异原因">
+          <el-input
+            type="textarea"
+            autosize
+            v-model="ground">
+          </el-input>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+    <el-dialog title="评估" :visible.sync="dialog2">
+      <el-form label-width="90px">
+        <el-form-item label="阶段">
+          <el-tag :type="success">{{ stage | statusFilter2}}</el-tag>
+        </el-form-item>
+        <el-form-item label="时间进度">
+          <el-radio-group v-model="sub.proce">
+            <el-radio :label="0">继续本阶段</el-radio>
+            <el-radio v-if="stage !== 3" :label="1">进入下一阶段</el-radio>
+            <el-radio :label="2">变异</el-radio>
+            <el-radio :label="3">完成路径</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item v-if="sub.proce === 2" label="变异原因">
+          <el-input
+            type="textarea"
+            autosize
+            placeholder="请输入变异原因"
+            v-model="sub.ground">
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click.native.prevent="submit2(); dialog2 = false">完成</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getList, getList2 } from '@/api/table'
-import { addtoPath } from '@/api/record'
+import { getList, getList2, getOut, getProcess } from '@/api/table'
+import {addtoPath, eValuate} from '@/api/record'
 export default {
   filters: {
     statusFilter(status) {
@@ -131,6 +170,15 @@ export default {
         '执行中': 'primary',
         '变异': 'danger',
         '未加入': 'warning'
+      }
+      return statusMap[status]
+    },
+    statusFilter2(status) {
+      const statusMap = {
+        '0': '阶段1',
+        '1': '阶段2',
+        '2': '阶段3',
+        '3': '阶段4'
       }
       return statusMap[status]
     }
@@ -199,7 +247,20 @@ export default {
       },
       date: null,
       time: null,
-      fulltime: new Date()
+      fulltime: new Date(),
+      dialog1: false,
+      dialog2: false,
+      ground: null,
+      sub: {
+        proce: null,
+        ground: '',
+        stage: '',
+        date: null,
+        time: null,
+        id: null
+      },
+      stage: '',
+      temid: null
     }
   },
   mounted() {
@@ -215,6 +276,8 @@ export default {
       var second = (d.getSeconds() < 10 ? '0' + (d.getSeconds()) : d.getSeconds())
       this.date = year + '-' + month + '-' + day
       this.time = hour + ':' + minute + ':' + second
+      this.sub.date = year + '-' + month + '-' + day
+      this.sub.time = hour + ':' + minute + ':' + second
     }, 1000)
   },
   beforeDestroy() {
@@ -255,7 +318,7 @@ export default {
         }
       })
     },
-    evaluate(row) {
+    evaluate1(row) {
       this.$router.push({
         path: '/Evaluate/Index',
         query: {
@@ -263,12 +326,35 @@ export default {
         }
       })
     },
-    ground(row) {
+    evaluate2(row) {
+      getProcess({ id: row.id }).then(response => {
+        this.stage = response.data.process
+        this.temid = row.id
+      })
+    },
+    ground1(row) {
       this.$router.push({
         path: '/Evaluate/Ground',
         query: {
           id: row.id
         }
+      })
+    },
+    ground2(row) {
+      getOut({ id: row.id }).then(response => {
+        this.ground = response.data.ground
+      })
+    },
+    submit2() {
+      this.sub.stage = this.stage
+      this.sub.id = this.temid
+      eValuate(this.sub).then(() => {
+        this.$alert('提交成功！', '消息', {
+          confirmButtonText: '确认',
+          callback: action => {
+            window.location.reload()
+          }
+        })
       })
     },
     diagn(row) {
