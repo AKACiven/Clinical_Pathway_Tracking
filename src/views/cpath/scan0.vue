@@ -343,3 +343,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.text-wrapper {
+  white-space: pre-wrap;
+}
+</style>
