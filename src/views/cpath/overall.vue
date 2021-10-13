@@ -42,87 +42,249 @@
             placeholder="搜索信息"/>
         </template>
         <template slot-scope="scope">
-          <el-button v-if="scope.row.beginDate !== '---'"  @click="edit(scope.row)" type="primary" size="small">编辑</el-button>
+          <el-button v-if="scope.row.beginDate !== '---' && scope.row.status === '正在进行'"  @click="edit(scope.row)" type="primary" size="small">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-dialog title="诊疗单" :visible.sync="dialog1">
       <template v-if="printnum === 0">
-        <div class="text-wrapper">{{ "第1阶段诊疗单" }}</div>
-        <div class="text-wrapper">{{ "*****************************主要诊疗工作****************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city0"><div v-if="item != null">{{ item }}</div></div>
-        <div class="text-wrapper">{{ "******************************长期医嘱******************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city1"><div v-if="item != null">{{ item }}</div>
-          <div v-if="item === '饮食'">{{ " ：" + detailCities.city1.input0 }}</div>
-          <div v-if="item === '其他医嘱'">{{ " ：" + detailCities.city1.input1 }}</div>
-        </div>
-        <div class="text-wrapper">{{ "******************************临时医嘱******************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city2"><div v-if="item != null">{{ item }}</div>
-          <div v-if="item === '常规检查'">
-            <div v-for="(item2) in detailCities.city2.input0">{{ " ：" + item2 + " " }}</div>
+<!--        <div class="text-wrapper">{{ "第1阶段诊疗单" }}</div>-->
+<!--        <div class="text-wrapper">{{ "*****************************主要诊疗工作****************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city0"><div v-if="item != null">{{ item }}</div></div>-->
+<!--        <div class="text-wrapper">{{ "******************************长期医嘱******************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city1"><div v-if="item != null">{{ item }}</div>-->
+<!--          <div v-if="item === '饮食'">{{ " ：" + detailCities.city1.input0 }}</div>-->
+<!--          <div v-if="item === '其他医嘱'">{{ " ：" + detailCities.city1.input1 }}</div>-->
+<!--        </div>-->
+<!--        <div class="text-wrapper">{{ "******************************临时医嘱******************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city2"><div v-if="item != null">{{ item }}</div>-->
+<!--          <div v-if="item === '常规检查'">-->
+<!--            <div v-for="(item2) in detailCities.city2.input0">{{ " ：" + item2 + " " }}</div>-->
+<!--          </div>-->
+<!--          <div v-if="item === '功能性检查'">-->
+<!--            <div v-for="(item2) in detailCities.city2.input1">{{ " ：" + item2 + " " }}</div>-->
+<!--          </div>-->
+<!--          <div v-if="item === '射线检查'">-->
+<!--            <div v-for="(item2) in detailCities.city2.input2">{{ " ：" + item2 + " " }}</div>-->
+<!--          </div>-->
+<!--          <div v-if="item === '其他医嘱'">{{ " ：" + detailCities.city2.input3 }}</div>-->
+<!--          <div v-if="item === '细化检查'">-->
+<!--            <div v-for="(item2) in detailCities.city2.input4">{{ " ：" + item2 + " " }}</div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="text-wrapper">{{ "*****************************主要护理工作****************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city3"><div v-if="item != null">{{ item }}</div></div>-->
+        <el-card class="box-card" shadow="hover">
+          <div slot="header" class="clearfix">
+            <span>第一阶段</span>
           </div>
-          <div v-if="item === '功能性检查'">
-            <div v-for="(item2) in detailCities.city2.input1">{{ " ：" + item2 + " " }}</div>
-          </div>
-          <div v-if="item === '射线检查'">
-            <div v-for="(item2) in detailCities.city2.input2">{{ " ：" + item2 + " " }}</div>
-          </div>
-          <div v-if="item === '其他医嘱'">{{ " ：" + detailCities.city2.input3 }}</div>
-          <div v-if="item === '细化检查'">
-            <div v-for="(item2) in detailCities.city2.input4">{{ " ：" + item2 + " " }}</div>
-          </div>
-        </div>
-        <div class="text-wrapper">{{ "*****************************主要护理工作****************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city3"><div v-if="item != null">{{ item }}</div></div>
+          <el-collapse v-model="activeNames" @change="handleChange">
+            <el-collapse-item title="主要诊疗工作" name="0">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city0">
+                <div v-if="item != null" class="title">{{ item }}</div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="长期医嘱" name="1">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city1">
+                <div v-if="item != null" class="title">{{ item }}</div>
+                <div v-if="item === '饮食'" class="subtitle">{{ " ：" + detailCities.city1.input0 }}</div>
+                <div v-if="item === '其他医嘱'" class="subtitle">{{ " ：" + detailCities.city1.input1 }}</div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="临时医嘱" name="2">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city2">
+                <div v-if="item != null" class="title">{{ item }}</div>
+                <div v-if="item === '常规检查'">
+                  <div v-for="(item2) in detailCities.city2.input0" class="subtitle">{{ " ：" + item2 + " " }}</div>
+                </div>
+                <div v-if="item === '功能性检查'">
+                  <div v-for="(item2) in detailCities.city2.input1" class="subtitle">{{ " ：" + item2 + " " }}</div>
+                </div>
+                <div v-if="item === '射线检查'">
+                  <div v-for="(item2) in detailCities.city2.input2" class="subtitle">{{ " ：" + item2 + " " }}</div>
+                </div>
+                <div v-if="item === '其他医嘱'" class="subtitle">{{ " ：" + detailCities.city2.input3 }}</div>
+                <div v-if="item === '细化检查'" class="subtitle">
+                  <div v-for="(item2) in detailCities.city2.input4">{{ " ：" + item2 + " " }}</div>
+                </div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="主要护理工作" name="3">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city3">
+                <div v-if="item != null" class="title">{{ item }}</div>
+              </div>
+            </el-collapse-item>
+          </el-collapse>
+        </el-card>
       </template>
       <template v-if="printnum === 1">
-        <div class="text-wrapper">{{ "第2阶段诊疗单" }}</div>
-        <div class="text-wrapper">{{ "*****************************主要诊疗工作****************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city0"><div v-if="item != null">{{ item }}</div></div>
-        <div class="text-wrapper">{{ "******************************长期医嘱******************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city1"><div v-if="item != null">{{ item }}</div>
-          <div v-if="item === '其他医嘱'">{{ " ：" + detailCities.city1.input0 }}</div>
-        </div>
-        <div class="text-wrapper">{{ "******************************临时医嘱******************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city2">
-          <div v-if="item != null">{{ item }}</div>
-          <div v-if="item === '其他医嘱'">{{ " ：" + detailCities.city2.input0 }}</div>
-        </div>
-        <div class="text-wrapper">{{ "*****************************主要护理工作****************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city3"><div v-if="item != null">{{ item }}</div></div>
+<!--        <div class="text-wrapper">{{ "第2阶段诊疗单" }}</div>-->
+<!--        <div class="text-wrapper">{{ "*****************************主要诊疗工作****************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city0"><div v-if="item != null">{{ item }}</div></div>-->
+<!--        <div class="text-wrapper">{{ "******************************长期医嘱******************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city1"><div v-if="item != null">{{ item }}</div>-->
+<!--          <div v-if="item === '其他医嘱'" class="subtitle">{{ " ：" + detailCities.city1.input0 }}</div>-->
+<!--        </div>-->
+<!--        <div class="text-wrapper">{{ "******************************临时医嘱******************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city2">-->
+<!--          <div v-if="item != null">{{ item }}</div>-->
+<!--          <div v-if="item === '其他医嘱'" class="subtitle">{{ " ：" + detailCities.city2.input0 }}</div>-->
+<!--        </div>-->
+<!--        <div class="text-wrapper">{{ "*****************************主要护理工作****************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city3"><div v-if="item != null">{{ item }}</div></div>-->
+        <el-card class="box-card" shadow="hover">
+          <div slot="header" class="clearfix">
+            <span>第二阶段</span>
+          </div>
+          <el-collapse v-model="activeNames" @change="handleChange">
+            <el-collapse-item title="主要诊疗工作" name="0">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city0">
+                <div v-if="item != null" class="title">{{ item }}</div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="长期医嘱" name="1">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city1">
+                <div v-if="item != null" class="title">{{ item }}</div>
+                <div v-if="item === '其他医嘱'" class="subtitle">{{ " ：" + detailCities.city1.input0 }}</div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="临时医嘱" name="2">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city2">
+                <div v-if="item != null" class="title">{{ item }}</div>
+                <div v-if="item === '其他医嘱'" class="subtitle">{{ " ：" + detailCities.city2.input0 }}</div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="主要护理工作" name="3">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city3">
+                <div v-if="item != null" class="title">{{ item }}</div>
+              </div>
+            </el-collapse-item>
+          </el-collapse>
+        </el-card>
       </template>
       <template v-if="printnum === 2">
-        <div class="text-wrapper">{{ "第3阶段诊疗单" }}</div>
-        <div class="text-wrapper">{{ "*****************************主要诊疗工作****************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city0"><div v-if="item != null">{{ item }}</div></div>
-        <div class="text-wrapper">{{ "******************************长期医嘱******************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city1"><div v-if="item != null">{{ item }}</div>
-          <div v-if="item === '苯丁酸氮芥10mg/(m^2*d)'">{{ " ：" + detailCities.city1.input1 + "天" }}</div>
-          <div v-if="item === '其他医嘱'">{{ " ：" + detailCities.city1.input0 }}</div>
-          <div v-if="item === '利妥昔单抗'">{{ " ：" + detailCities.city1.input2 + "mg/m2，1天" }}</div>
-          <div v-if="item === '氟达拉滨'">{{ " ：" + detailCities.city1.input3 + "mg/(m^2*d)" + " " + detailCities.city1.input4 + "天" }}</div>
-          <div v-if="item === '环磷酰胺'">{{ " ：" + detailCities.city1.input5 + "mg/(m^2*d)" + " " + detailCities.city1.input6 + "天" }}</div>
-          <div v-if="item === '甲泼尼龙1g/(m^2*d)'">{{ " ：" + detailCities.city1.input7 + "天" }}</div>
-        </div>
-        <div class="text-wrapper">{{ "******************************临时医嘱******************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city2"><div v-if="item != null">{{ item }}</div></div>
-        <div class="text-wrapper">{{ "*****************************主要护理工作****************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city3"><div v-if="item != null">{{ item }}</div></div>
+<!--        <div class="text-wrapper">{{ "第3阶段诊疗单" }}</div>-->
+<!--        <div class="text-wrapper">{{ "*****************************主要诊疗工作****************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city0"><div v-if="item != null">{{ item }}</div></div>-->
+<!--        <div class="text-wrapper">{{ "******************************长期医嘱******************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city1"><div v-if="item != null">{{ item }}</div>-->
+<!--          <div v-if="item === '苯丁酸氮芥10mg/(m^2*d)'">{{ " ：" + detailCities.city1.input1 + "天" }}</div>-->
+<!--          <div v-if="item === '其他医嘱'">{{ " ：" + detailCities.city1.input0 }}</div>-->
+<!--          <div v-if="item === '利妥昔单抗'">{{ " ：" + detailCities.city1.input2 + "mg/m2，1天" }}</div>-->
+<!--          <div v-if="item === '氟达拉滨'">{{ " ：" + detailCities.city1.input3 + "mg/(m^2*d)" + " " + detailCities.city1.input4 + "天" }}</div>-->
+<!--          <div v-if="item === '环磷酰胺'">{{ " ：" + detailCities.city1.input5 + "mg/(m^2*d)" + " " + detailCities.city1.input6 + "天" }}</div>-->
+<!--          <div v-if="item === '甲泼尼龙1g/(m^2*d)'">{{ " ：" + detailCities.city1.input7 + "天" }}</div>-->
+<!--        </div>-->
+<!--        <div class="text-wrapper">{{ "******************************临时医嘱******************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city2"><div v-if="item != null">{{ item }}</div></div>-->
+<!--        <div class="text-wrapper">{{ "*****************************主要护理工作****************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city3"><div v-if="item != null">{{ item }}</div></div>-->
+        <el-card class="box-card" shadow="hover">
+          <div slot="header" class="clearfix">
+            <span>第三阶段</span>
+          </div>
+          <el-collapse v-model="activeNames" @change="handleChange">
+            <el-collapse-item title="主要诊疗工作" name="0">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city0">
+                <div v-if="item != null" class="title">{{ item }}</div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="长期医嘱" name="1">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city1">
+                <div v-if="item != null" class="title">{{ item }}</div>
+                <div v-if="item === '苯丁酸氮芥10mg/(m^2*d)'" class="subtitle">{{ " ：" + detailCities.city1.input1 + "天" }}</div>
+                <div v-if="item === '其他医嘱'" class="subtitle">{{ " ：" + detailCities.city1.input0 }}</div>
+                <div v-if="item === '利妥昔单抗'" class="subtitle">{{ " ：" + detailCities.city1.input2 + "mg/m2，1天" }}</div>
+                <div v-if="item === '氟达拉滨'" class="subtitle">{{ " ：" + detailCities.city1.input3 + "mg/(m^2*d)" + " " + detailCities.city1.input4 + "天" }}</div>
+                <div v-if="item === '环磷酰胺'" class="subtitle">{{ " ：" + detailCities.city1.input5 + "mg/(m^2*d)" + " " + detailCities.city1.input6 + "天" }}</div>
+                <div v-if="item === '甲泼尼龙1g/(m^2*d)'" class="subtitle">{{ " ：" + detailCities.city1.input7 + "天" }}</div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="临时医嘱" name="2">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city2">
+                <div v-if="item != null" class="title">{{ item }}</div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="主要护理工作" name="3">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city3">
+                <div v-if="item != null" class="title">{{ item }}</div>
+              </div>
+            </el-collapse-item>
+          </el-collapse>
+        </el-card>
       </template>
       <template v-if="printnum === 3">
-        <div class="text-wrapper">{{ "第4阶段诊疗单" }}</div>
-        <div class="text-wrapper">{{ "*****************************主要诊疗工作****************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city0"><div v-if="item != null">{{ item }}</div></div>
-        <div class="text-wrapper">{{ "******************************长期医嘱******************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city1"><div v-if="item != null">{{ item }}</div></div>
-        <div class="text-wrapper">{{ "******************************临时医嘱******************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city2"><div v-if="item != null">{{ item }}</div>
-          <div v-if="item === '其他医嘱'">{{ " ：" + detailCities.city2.input0 }}</div>
-        </div>
-        <div class="text-wrapper">{{ "*****************************主要护理工作****************************" }}</div>
-        <div class="text-wrapper" v-for="(item) in checkedCities.city3"><div v-if="item != null">{{ item }}</div></div>
+<!--        <div class="text-wrapper">{{ "第4阶段诊疗单" }}</div>-->
+<!--        <div class="text-wrapper">{{ "*****************************主要诊疗工作****************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city0"><div v-if="item != null">{{ item }}</div></div>-->
+<!--        <div class="text-wrapper">{{ "******************************长期医嘱******************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city1"><div v-if="item != null">{{ item }}</div></div>-->
+<!--        <div class="text-wrapper">{{ "******************************临时医嘱******************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city2"><div v-if="item != null">{{ item }}</div>-->
+<!--          <div v-if="item === '其他医嘱'">{{ " ：" + detailCities.city2.input0 }}</div>-->
+<!--        </div>-->
+<!--        <div class="text-wrapper">{{ "*****************************主要护理工作****************************" }}</div>-->
+<!--        <div class="text-wrapper" v-for="(item) in checkedCities.city3"><div v-if="item != null">{{ item }}</div></div>-->
+        <el-card class="box-card" shadow="hover">
+          <div slot="header" class="clearfix">
+            <span>第四阶段</span>
+            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+          </div>
+          <el-collapse v-model="activeNames" @change="handleChange">
+            <el-collapse-item title="主要诊疗工作" name="0">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city0">
+                <div v-if="item != null" class="title">{{ item }}</div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="长期医嘱" name="1">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city1">
+                <div v-if="item != null" class="title">{{ item }}</div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="临时医嘱" name="2">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city2">
+                <div v-if="item != null" class="title">{{ item }}</div>
+                <div v-if="item === '其他医嘱'" class="subtitle">{{ " ：" + detailCities.city2.input0 }}</div>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="主要护理工作" name="3">
+              <div class="text-wrapper" v-for="(item,i) in checkedCities.city3">
+                <div v-if="item != null" class="title">{{ item }}</div>
+              </div>
+            </el-collapse-item>
+          </el-collapse>
+        </el-card>
       </template>
     </el-dialog>
+<!--    <el-card class="box-card" shadow="hover">-->
+<!--      <div slot="header" class="clearfix">-->
+<!--        <span>诊疗单</span>-->
+<!--        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>-->
+<!--      </div>-->
+<!--      <el-collapse v-model="activeNames" @change="handleChange">-->
+<!--        <el-collapse-item title="主要诊疗工作" name="0">-->
+<!--          <div class="text-wrapper" v-for="(item,i) in checkedCities.city0">-->
+<!--            <div v-if="item != null" class="title">{{ item }}</div>-->
+<!--          </div>-->
+<!--        </el-collapse-item>-->
+<!--        <el-collapse-item title="长期医嘱" name="1">-->
+<!--          <div class="text-wrapper" v-for="(item,i) in checkedCities.city1">-->
+<!--            <div v-if="item != null" class="title">{{ item }}</div>-->
+<!--          </div>-->
+<!--        </el-collapse-item>-->
+<!--        <el-collapse-item title="临时医嘱" name="2">-->
+<!--          <div class="text-wrapper" v-for="(item,i) in checkedCities.city2">-->
+<!--            <div v-if="item != null" class="title">{{ item }}</div>-->
+<!--            <div v-if="i === '其他医嘱'">{{ " ：" + detailCities.city2.input0 }}</div>-->
+<!--          </div>-->
+<!--        </el-collapse-item>-->
+<!--        <el-collapse-item title="主要护理工作" name="3">-->
+<!--          <div class="text-wrapper" v-for="(item,i) in checkedCities.city3">-->
+<!--            <div v-if="item != null" class="title">{{ item }}</div>-->
+<!--          </div>-->
+<!--        </el-collapse-item>-->
+<!--      </el-collapse>-->
+<!--    </el-card>-->
   </div>
 </template>
 
@@ -152,7 +314,7 @@ export default {
       ground: '',
       print: null,
       checkedCities: {
-        city0: [1, 2, 3, 4, 5, 6],
+        city0: [],
         city1: [],
         city2: [],
         city3: []
@@ -165,7 +327,8 @@ export default {
       },
       printnum: null,
       dialog1: false,
-      dialog2: false
+      dialog2: false,
+      activeNames: ['0', '1', '2', '3']
     }
   },
   mounted() {
@@ -236,6 +399,9 @@ export default {
           where: row.where
         }
       })
+    },
+    handleChange(val) {
+      console.log(val)
     }
   }
 }
@@ -247,5 +413,33 @@ export default {
 }
 .element-wrapper {
   white-space: nowrap;
+}
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both
+}
+
+.box-card {
+  width: 100%;
+}
+.title {
+  font-size: 15px;
+  color: #000000;
+}
+.subtitle {
+  font-size: 10px;
+  color: #2b2b2b;
 }
 </style>
