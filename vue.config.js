@@ -39,12 +39,12 @@ module.exports = {
     },
     before: require('./mock/mock-server.js'),
     // proxy: {
-    //   [process.env.VUE_APP_BASE_API]: {
-    //     target: 'http://4py2535603.qicp.vip',    //这里就改成你的api路径
+    //   'server': {
+    //     target: 'http://4py2535603.qicp.vip',
     //     changeOrigin: true,
-    //     pathRewrite: {
-    //       ['^' + process.env.VUE_APP_BASE_API]: ''
-    //     }
+    //     // pathRewrite: {
+    //     //   ['^' + process.env.VUE_APP_BASE_API]: ''
+    //     // }
     //   }
     // }
   },

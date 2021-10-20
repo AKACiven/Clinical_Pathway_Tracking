@@ -11,7 +11,7 @@ import axios from 'axios'
 const config = {
   // baseURL: process.env.baseURL || process.env.apiUrl || ""
   // timeout: 60 * 1000, // Timeout
-  withCredentials: false, // Check cross-site Access-Control
+  withCredentials: false // Check cross-site Access-Control
 }
 
 const _axios = axios.create(config)
