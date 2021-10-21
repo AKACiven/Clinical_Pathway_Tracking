@@ -16,7 +16,7 @@
           highlight-current-row
           :default-sort = "{prop: 'bed', order: 'ascending'}"
         >
-          <el-table-column label="ID" width="200" align="center">
+          <el-table-column label="ID" width="300" align="center">
             <template slot-scope="scope">
               {{ scope.row.id }}
             </template>
@@ -72,7 +72,7 @@
           highlight-current-row
           :default-sort = "{prop: 'bed', order: 'ascending'}"
         >
-          <el-table-column label="ID" width="200" align="center">
+          <el-table-column label="ID" width="300" align="center">
             <template slot-scope="scope">
               {{ scope.row.id }}
             </template>
