@@ -228,7 +228,6 @@
         <el-card class="box-card" shadow="hover">
           <div slot="header" class="clearfix">
             <span>第四阶段</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
           </div>
           <el-collapse v-model="activeNames" @change="handleChange">
             <el-collapse-item title="主要诊疗工作" name="0">
